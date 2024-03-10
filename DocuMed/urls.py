@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import home
+from django.contrib.auth import views as auth_views 
+from doctors import views as doctor_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('docreg/',doctor_views.RegisterDoc,name = 'RegisterDoc'),
+    path('redirect/', doctor_views.redirect_user, name='redirect_user'),
+    path('login/',auth_views.LoginView.as_view(template_name='doctors/Login.html'),name = 'Doclogin'),
     path('patient/', include('patients.urls')),
     path('doctor/', include('doctors.urls')),
     path('', home, name='home'),
