@@ -5,7 +5,7 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,6 +46,7 @@
             width: 300px;
         }
         .login-form input[type="text"],
+        .login-form input[type="email"],
         .login-form input[type="password"] {
             background-color: #f0f0f0;
             width: calc(100% - 40px);
@@ -88,34 +89,76 @@
             color: #000000;
         }
 
+        .file-input {
+            width : 100%;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .file-input label {
+            background-color: #146be3;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+
+        }
+        .file-input label:hover {
+            background-color: #240bb4;
+        }
+        .file-input input[type="file"] {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
     <div class="navbar">
         <div class="name">DocuMED</div>
-        <div class="user">User Login</div>
+        <div class="user">Patient Registration</div>
     </div>
     <div class="container">
         <div class="login-form">
-            
-          
-            <form method="POST">
+            <form enctype="multipart/form-data" method="POST" >
                 {% csrf_token %}
                 {{form}}
-                  <!--
+                <!--
                 <div class="row">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Phone no./ email address">
+                    <input type="text" placeholder="UserName">
+                </div>
+                <div class="row">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="row">
+                    <i class="fas fa-phone-alt"></i>
+                    <input type="text" placeholder="Phone Number">
+                </div>
+                <div class="row">
+                    <i class="fas fa-mail-bulk"></i>
+                    <input type="email" placeholder="E-mail address">
                 </div>
                 <div class="row">
                     <i class="fas fa-lock"></i>
                     <input type="password" placeholder="Password">
                 </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Confirm Password">
+                </div>
+
+                <div class="file-input">
+                    <label for="fileInput">Upload Licence </label>
+                    <input type="file" id="fileInput" accept="image/*,.pdf">
+                </div>
+
             -->
                 <div class="row">
-                    <input type="submit" value="Login">
+                    <input type="submit" value="Register">
                 </div>
-                <p class="New">Don't have an account? <span class="New"><a href="#">Sign Up</a></span></p>
+          
             </form>
         </div>
     </div>

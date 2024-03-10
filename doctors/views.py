@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Prescription,DoctorUser
+from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -29,7 +30,8 @@ def redirect_user(request):
     # Check if the user is a doctor
     if DoctorUser.objects.filter(user=user).exists():
         return render(request,'doctors/Dochome.html')
-
+    elif PatientUser.objects.filter(user=user).exists():
+        return render(request,'patients/pathome.html')
     # If user is not a doctor or patient, redirect to a generic dashboard or homepage
     else:
         return redirect('home')
