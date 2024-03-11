@@ -1,0 +1,17 @@
+<form method="post">
+    {% csrf_token %}
+    <h2>Share Documents</h2>
+    <p>Select the doctors and documents you want to share:</p>
+
+    <h3>Doctors</h3>
+    {% for doctor in doctors %}
+        <input type="checkbox" name="doctors" value="{{ doctor.id }}"> {{ doctor.name }}
+    {% endfor %}
+
+    <h3>Documents</h3>
+    {% for document in documents %}
+        <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
+    {% endfor %}
+
+    <button type="submit">Share</button>
+</form>
