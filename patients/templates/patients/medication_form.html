@@ -8,9 +8,10 @@
   <ul>
     {% for document in medications %}
     <li>
-      {% comment %} <a href="{{ document.file.url }}">{{ document.file.name }}</a> {% endcomment %}
+      <a href="{{ document.file.url }}">{{ document.file.name }}</a>
       <small>({{ document.medical_condition}})</small>
     </li>
     {% endfor %}
   </ul>
 </div>
+

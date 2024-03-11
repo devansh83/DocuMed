@@ -20,6 +20,8 @@ from .views import home
 from django.contrib.auth import views as auth_views 
 from doctors import views as doctor_views
 from patients import views as patient_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +34,4 @@ urlpatterns = [
     path('patient/', include('patients.urls')),
     path('doctor/', include('doctors.urls')),
     path('', home, name='home'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
