@@ -1,104 +1,104 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
 
-        .navbar {
-            width: 100%;
-            background-color: #2456c0;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
+      .navbar {
+        width: 100%;
+        background-color: #2456c0;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
 
-        .navbar .name {
-            float: left;
-            padding-left: 20px;
-            cursor: pointer;
-        }
+      .navbar .name {
+        float: left;
+        padding-left: 20px;
+        cursor: pointer;
+      }
 
-        .navbar .user {
-            float: right;
-            padding-right: 20px;
-        }
+      .navbar .user {
+        float: right;
+        padding-right: 20px;
+      }
 
-        .login-options {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 30%;
-        }
+      .login-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 30%;
+      }
 
-        .login-as {
-            text-align: center;
-            flex-grow: 1;
-            margin-top: 30%;
-            font-size: 24px; /* Increased font size for the Login as text */
-        }
+      .login-as {
+        text-align: center;
+        flex-grow: 1;
+        margin-top: 30%;
+        font-size: 24px; /* Increased font size for the Login as text */
+      }
 
-        .login-option {
-            text-align: center;
-            margin: 0;
-            margin-top: 70%;
-        }
+      .login-option {
+        text-align: center;
+        margin: 0;
+        margin-top: 70%;
+      }
 
-        .login-option button {
-            padding: 20px; /* Increased padding for buttons */
-            font-size: 24px; /* Increased font size for buttons */
-            cursor: pointer;
-            background-color: #2456c0;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+      .login-option button {
+        padding: 20px; /* Increased padding for buttons */
+        font-size: 24px; /* Increased font size for buttons */
+        cursor: pointer;
+        background-color: #2456c0;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
 
-        .login-option button:hover {
-            background-color: #1a427f;
-        }
+      .login-option button:hover {
+        background-color: #1a427f;
+      }
 
-        .icon {
-            font-size: 40px; /* Increased font size for icons */
-            margin-bottom: 10px;
-        }
+      .icon {
+        font-size: 40px; /* Increased font size for icons */
+        margin-bottom: 10px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="navbar">
-        <div class="name">DocuMED</div>
-        <div class="user">User Login</div>
+      <div class="name">DocuMED</div>
+      <div class="user">User Login</div>
     </div>
 
     <div class="login-options">
-        <div class="login-option">
-            <i class="icon fas fa-user"></i><br>
-            <button><a href="{url 'patients/Login'}">Patient</a></button>
-        </div>
-        <div class="login-as">
-            <p>Login as</p>
-        </div>
-        <div class="login-option">
-            <i class="icon fas fa-user-md"></i><br>
-            <button><a href="{url 'doctors/Login'}">Doctor</a></button>
-        </div>
+      <div class="login-option">
+        <i class="icon fas fa-user"></i><br />
+        <button><a href="{url 'patients/login'}">Patient</a></button>
+      </div>
+      <div class="login-as">
+        <p>Login as</p>
+      </div>
+      <div class="login-option">
+        <i class="icon fas fa-user-md"></i><br />
+        <button><a href="{url 'doctors/login'}">Doctor</a></button>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

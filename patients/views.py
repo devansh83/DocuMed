@@ -7,6 +7,7 @@ from .forms import PatientRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from doctors.models import DoctorUser, SharedDocument
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
 def home(request):
@@ -44,23 +45,31 @@ def redirect_user(request):
 """
 
 
-class UploadMedication(CreateView):
+class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
-    fields = ['medical_condition', 'medicines', 'file', 'author']
+    fields = ['medical_condition', 'medicines', 'file']
     success_url = reverse_lazy('medupload')
-    
-    @login_required
+    login_url = '/patient/login/' 
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user.patientuser
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['medications'] = Medication.objects.all()
         return context
     
-class UploadDocuments(CreateView):
+class UploadDocuments(LoginRequiredMixin, CreateView):
     model = Documents
-    fields = ['file', 'author']
-    success_url = reverse_lazy('docupload')
+    fields = ['file']
+    success_url = reverse_lazy('patient:docupload')
+    login_url = '/patient/login/'
     
-    @login_required
+    def form_valid(self, form):
+        form.instance.author = self.request.user.patientuser
+        return super().form_valid(form)
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['documents'] = Documents.objects.all()
@@ -83,6 +92,6 @@ def share_documents(request):
                 document = Documents.objects.get(id=document_id, author=patient)
                 SharedDocument.objects.create(document=document, doctor=doctor, patient=patient)
 
-        return redirect('document_list')
+        return redirect('patient:patient-home')
 
     return render(request, 'patients/share_documents.html', {'documents': documents, 'doctors': doctors})

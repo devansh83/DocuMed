@@ -1,9 +1,0 @@
-<h2>Shared Documents</h2>
-<ul>
-    {% for shared_doc in shared_docs %}
-        <li>
-            Document: {{ shared_doc.document.file.name }}
-            Patient: {{ shared_doc.patient.name }}
-        </li>
-    {% endfor %}
-</ul>
