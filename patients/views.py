@@ -1,9 +1,12 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Medication, Documents,PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .forms import PatientRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from doctors.models import DoctorUser, SharedDocument
 
 def home(request):
     # context = {
@@ -37,7 +40,8 @@ def redirect_user(request):
     else:
         return redirect('home')
 """
-class UploadMedication(CreateView):
+class UploadMedication(LoginRequiredMixin, CreateView):
+    login_url = '/loginpat/'
     model = Medication
     fields = ['medical_condition', 'medicines', 'file', 'author']
     success_url = reverse_lazy('medupload')
@@ -56,3 +60,24 @@ class UploadDocuments(CreateView):
         context = super().get_context_data(**kwargs)
         context['documents'] = Documents.objects.all()
         return context
+    
+    
+@login_required
+def share_documents(request):
+    patient = request.user.patientuser
+    documents = Documents.objects.filter(author=patient)
+    doctors = DoctorUser.objects.all()
+
+    if request.method == 'POST':
+        selected_doctors = request.POST.getlist('doctors')
+        selected_documents = request.POST.getlist('documents')
+
+        for doctor_id in selected_doctors:
+            doctor = DoctorUser.objects.get(id=doctor_id)
+            for document_id in selected_documents:
+                document = Documents.objects.get(id=document_id, author=patient)
+                SharedDocument.objects.create(document=document, doctor=doctor, patient=patient)
+
+        return redirect('document_list')
+
+    return render(request, 'patients/share_documents.html', {'documents': documents, 'doctors': doctors})

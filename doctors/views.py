@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
-from .models import Prescription,DoctorUser
+from .models import Prescription,DoctorUser,SharedDocument
 from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import DoctorRegisterForm
 from django.contrib.auth.decorators import login_required
+
 
 def home(request):
     return render(request, 'doctors/home.html')
@@ -46,3 +47,9 @@ class UploadPrescription(CreateView):
         context['prescriptions'] = Prescription.objects.all()
         return context
     
+
+@login_required
+def shared_documents(request):
+    doctor = request.user.doctoruser
+    shared_docs = SharedDocument.objects.filter(doctor=doctor)
+    return render(request, 'doctors/shared_documents.html', {'shared_docs': shared_docs})
