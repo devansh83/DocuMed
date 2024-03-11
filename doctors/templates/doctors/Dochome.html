@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Home</title>
-    </head>
-    <body>
-        <h1>Doctor</h1>
-        <p>Here are your current patients</p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuMED Patient Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px; /* Adjust the margin as needed */
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center; /* Center vertically */
+            flex-grow: 1; /* Allow the search bar to take up remaining space */
+        }
+
+        .search-bar input {
+            padding: 10px 20px;
+            width: 30%; /* Adjust the width as needed */
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section {
+            width: 48%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #eaeaea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: black;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="brand-name">DocuMED</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for 'Patients'">
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <section class="section new-patients">
+            <h1>Past Patients</h1>
+            <div class="card">
+                <p>Name: John Doe</p>
+                <p>Age: 45</p>
+                <p>Disease: Flu</p>
+            </div>
+            <button type="button">VIEW ALL</button>
+        </section>
+        
+        <section class="section ongoing-patients">
+            <h1>Ongoing Patients</h1>
+            <div class="card">
+                <p>Name: Jane Smith</p>
+                <p>Age: 32</p>
+                <p>Disease: Diabetes</p>
+            </div>
+            <button type="button">VIEW ALL</button>
+        </section>
+    </main>
+</body>
 </html>

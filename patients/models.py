@@ -10,7 +10,7 @@ class PatientUser(models.Model):
 class Medication(models.Model):
     medical_condition = models.CharField(max_length=100)
     medicines = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')    
 
 class Documents(models.Model):
