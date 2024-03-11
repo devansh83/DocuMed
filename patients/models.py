@@ -14,6 +14,6 @@ class Medication(models.Model):
     file = models.FileField(upload_to='')    
 
 class Documents(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')
    
