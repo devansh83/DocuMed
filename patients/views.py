@@ -8,12 +8,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from doctors.models import DoctorUser, SharedDocument
 
+@login_required
 def home(request):
-    # context = {
-    #     'medications': Medication.objects.all(),
-    #     'documents': Documents.objects.all()
-    # }
-    return render(request, 'patients/home.html')
+     user = request.user
+     if PatientUser.objects.filter(user=user).exists():
+      return render(request, 'patients/pathome.html')
+     else:
+         return redirect('home')
+
 
 def RegisterPatient(request):
     if request.method=="POST":
@@ -40,12 +42,14 @@ def redirect_user(request):
     else:
         return redirect('home')
 """
-class UploadMedication(LoginRequiredMixin, CreateView):
-    login_url = '/loginpat/'
+
+
+class UploadMedication(CreateView):
     model = Medication
     fields = ['medical_condition', 'medicines', 'file', 'author']
     success_url = reverse_lazy('medupload')
     
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['medications'] = Medication.objects.all()
@@ -56,6 +60,7 @@ class UploadDocuments(CreateView):
     fields = ['file', 'author']
     success_url = reverse_lazy('docupload')
     
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['documents'] = Documents.objects.all()

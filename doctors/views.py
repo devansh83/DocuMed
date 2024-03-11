@@ -8,8 +8,13 @@ from .forms import DoctorRegisterForm
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
-    return render(request, 'doctors/home.html')
+     user = request.user
+     if DoctorUser.objects.filter(user=user).exists():
+      return render(request, 'doctors/dochome.html')
+     else:
+         return redirect('home')
 
 
 def RegisterDoc(request):
