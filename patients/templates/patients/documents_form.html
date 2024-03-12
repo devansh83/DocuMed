@@ -1,3 +1,5 @@
+<!--
+
 <div style="padding:40px;margin:40px;border:1px solid #ccc">
     <h1>Upload Old Documents</h1>
     <form method="post" enctype="multipart/form-data">
@@ -14,3 +16,52 @@
     {% endfor %}
     </ul>
 </div>
+
+-->
+
+
+
+
+
+
+
+
+<div style="padding: 40px; margin: 40px; border: 1px solid #ccc; text-align: center;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <h1 style=" margin-bottom: 20px;">Upload Old Documents</h1>
+    <form method="post" enctype="multipart/form-data" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        {% for document in documents %}
+        <div style="padding: 20px; margin: 10px; border: 1px solid #ccc; text-align: center;">
+            <a href="{{ document.file.url }}" target="_blank" style="display: block;">
+                <!-- Or icon -->
+                <i class="fas fa-file-pdf" style="font-size: 100px; margin-bottom: 10px; color: red;"></i>
+            </a>
+            <div style="font-size: 18px; margin-bottom: 10px;">
+                <a href="{{ document.file.url }}" style="color: black;">{{ document.file.name }}</a>
+                <br>
+                <small>({{ document.file.size|filesizeformat }})</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
