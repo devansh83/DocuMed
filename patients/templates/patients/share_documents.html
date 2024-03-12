@@ -1,17 +1,209 @@
-<form method="post">
-    {% csrf_token %}
-    <h2>Share Documents</h2>
-    <p>Select the doctors and documents you want to share:</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Documents</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-    <h3>Doctors</h3>
-    {% for doctor in doctors %}
-        <input type="checkbox" name="doctors" value="{{ doctor.id }}"> {{ doctor.name }}
-    {% endfor %}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    <h3>Documents</h3>
-    {% for document in documents %}
-        <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
-    {% endfor %}
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
 
-    <button type="submit">Share</button>
-</form>
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+
+        .custom-select {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-select input {
+            padding-right: 60px;
+            font-size: 1rem;
+            height: 48px;
+            width: 300px;
+            box-sizing: border-box;
+            flex: 1;
+        }
+
+        .custom-select .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        .selected-doctors {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .selected-doctors span {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2196f3;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .selected-doctors span .remove-doctor {
+            color: #fff;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+
+        .selected-doctors span .remove-doctor:hover {
+            color: #f8f8f8;
+        }
+
+        button[type="submit"] {
+            background-color: #2196f3;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #6c3483;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Share Documents</h2>
+
+        <div class="form-group">
+            <label for="doctors">Select Doctors:</label>
+            <div class="custom-select">
+                <input type="text" class="form-control" id="doctors" placeholder="Search doctors...">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+            </div>
+            <select name="doctors" id="doctors-select" class="form-control" multiple>
+                {% for doctor in doctors %}
+                    <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="selected-doctors"></div>
+        </div>
+
+        <div class="form-group">
+            <h3>Documents</h3>
+            {% for document in documents %}
+                <div>
+                    <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Share</button>
+    </form>
+
+    <script>
+        const doctorsInput = document.getElementById('doctors');
+        const doctorsSelect = document.getElementById('doctors-select');
+        const selectedDoctorsContainer = document.querySelector('.selected-doctors');
+
+        doctorsInput.addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const options = doctorsSelect.options;
+
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const doctorName = option.text.toLowerCase();
+
+                if (doctorName.includes(filter)) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+        });
+
+        doctorsSelect.addEventListener('change', function() {
+            const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
+            selectedDoctorsContainer.innerHTML = '';
+
+            selectedDoctors.forEach(doctor => {
+                const doctorSpan = document.createElement('span');
+                doctorSpan.textContent = doctor;
+
+                const removeIcon = document.createElement('span');
+                removeIcon.textContent = '\u00D7';
+                removeIcon.className = 'remove-doctor';
+                removeIcon.addEventListener('click', function() {
+                    const doctorOption = doctorsSelect.options.namedItem(doctor);
+                    doctorOption.selected = false;
+                    doctorSpan.remove();
+                });
+
+                doctorSpan.appendChild(removeIcon);
+                selectedDoctorsContainer.appendChild(doctorSpan);
+            });
+        });
+    </script>
+</body>
+</html>

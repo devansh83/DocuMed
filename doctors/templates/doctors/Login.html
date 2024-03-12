@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/yourcode.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
     <style>
         body {
@@ -94,23 +100,19 @@
             transform: translateY(-50%);
             color: #000000;
         }
-
     </style>
-</head>
-<body>
-   
+  </head>
+  <body>
     <div class="navbar">
         <div class="navbar-brand">DocuMED</div>
         <div class="doctor-login">Doctor Login</div>
     </div>
-   
-    <div class="container">
-        <div class="login-form">
-            <form method="POST">
-                {% csrf_token %}
 
-                {{form}}
-                <!--
+    <div class="container">
+      <div class="login-form">
+        <form method="POST">
+          {% csrf_token %} {{form}}
+          <!--
                 <div class="row">
                     <i class="fas fa-user"></i>
                     <input type="text" placeholder="Phone no./ email address">
@@ -120,13 +122,18 @@
                     <input type="password" placeholder="Password">
                 </div>
             -->
-                <div class="row">
-                    <input type="submit" value="Login">
-                </div>
-        
-                <p class="New">Don't have an account? <span class="New"><a href="#">Sign Up</a></span></p>
-            </form>
-        </div>
+          <div class="row">
+            <input type="submit" value="Login" />
+          </div>
+
+          <p class="New">
+            Don't have an account?
+            <span class="New"
+              ><a href="{% url 'doctor:RegisterDoc' %}">Sign Up</a></span
+            >
+          </p>
+        </form>
+      </div>
     </div>
-</body>
+  </body>
 </html>

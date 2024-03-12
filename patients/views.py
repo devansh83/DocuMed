@@ -72,7 +72,8 @@ class UploadDocuments(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['documents'] = Documents.objects.all()
+        patient = self.request.user.patientuser
+        context['documents'] = Documents.objects.filter(author = patient)
         return context
     
     

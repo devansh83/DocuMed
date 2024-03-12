@@ -96,77 +96,118 @@
             color: #000000;
         }
 
-        .file-input {
-            width : 100%;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .file-input label {
-            background-color: #146be3;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
 
-        }
-        .file-input label:hover {
-            background-color: #240bb4;
-        }
-        .file-input input[type="file"] {
-            display: none;
-        }
+/* Navbar Styling */
 
+.name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user {
+  font-size: 18px;
+}
+
+/* Form Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  text-align: center; /* Center body text */
+}
+
+.content-section {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: center; /* Center form group text */
+}
+
+legend {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center; /* Center legend text */
+}
+
+label {
+  font-weight: bold;
+  text-align: center; /* Center label text */
+  padding-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[name="phone_number"] {
+  width: 100%;
+  height: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  text-align: center; /* Center input text */
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Center button text */
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.text-muted {
+  color: #888;
+  text-align: center; /* Center muted text */
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  text-align: center; /* Center link text */
+}
+
+a:hover {
+  text-decoration: underline;
+}
     </style>
 </head>
+{% load crispy_forms_tags %}
 <body>
     <div class="navbar">
         <div class="navbar-brand">DocuMED</div>
         <div class="patient-reg">Patient Registration</div>
     </div>
-    <div class="container">
-        <div class="login-form">
-            <form enctype="multipart/form-data" method="POST" >
-                {% csrf_token %}
-                {{form}}
-                <!--
-                <div class="row">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="UserName">
-                </div>
-                <div class="row">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Name">
-                </div>
-                <div class="row">
-                    <i class="fas fa-phone-alt"></i>
-                    <input type="text" placeholder="Phone Number">
-                </div>
-                <div class="row">
-                    <i class="fas fa-mail-bulk"></i>
-                    <input type="email" placeholder="E-mail address">
-                </div>
-                <div class="row">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password">
-                </div>
-                <div class="row">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Confirm Password">
-                </div>
-
-                <div class="file-input">
-                    <label for="fileInput">Upload Licence </label>
-                    <input type="file" id="fileInput" accept="image/*,.pdf">
-                </div>
-
-            -->
-                <div class="row">
-                    <input type="submit" value="Register">
-                </div>
-          
-            </form>
+    <div class="content-section">
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Register</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="#">Sign In</a>
+            </small>
         </div>
     </div>
 </body>
