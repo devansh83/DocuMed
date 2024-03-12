@@ -13,6 +13,5 @@ urlpatterns = [
     path('documents/', patient_views.UploadDocuments.as_view(), name='docupload'),
     path('share/', views.share_documents, name='sharedoc'),
     path('register/',patient_views.RegisterPatient,name = 'RegisterPatient'),
-    path('login/', auth_views.LoginView.as_view(template_name='patients/Login.html'),name = 'patlogin')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
