@@ -73,6 +73,11 @@
             background-color: #1d75af;
         }
 
+        .login-option button a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .icon1 {
             width: 93px;
             height: 93px;
@@ -103,7 +108,7 @@
         </div>
         <div class="login-option">
             <img class="icon" src="{% static 'Doctor.png' %}" alt="Doctor Image"><br>
-            <button>Doctor</button>
+            <button><a href="{% url 'doctor:doclogin' %}">Doctor</a></button>
         </div>
 
     </div>
