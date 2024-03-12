@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,14 +95,14 @@
 
     <div class="login-options">
         <div class="login-option">
-            <img class="icon1" src="Patient.png" alt="Patient Image"><br>
-            <button>Patient</button>
+            <img class="icon" src="{% static 'Patient.png' %}" alt="Patient Image"><br>
+            <button><a href="{% url 'patient:patlogin' %}">Patient</a></button>
         </div>
         <div class="login-as">
             <p>Login as</p>
         </div>
         <div class="login-option">
-            <img class="icon2" src="Doctor.png" alt="Doctor Image"><br>
+            <img class="icon" src="{% static 'Doctor.png' %}" alt="Doctor Image"><br>
             <button>Doctor</button>
         </div>
 
