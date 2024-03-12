@@ -96,14 +96,14 @@
     <div class="login-options">
         <div class="login-option">
             <img class="icon" src="{% static 'Patient.png' %}" alt="Patient Image"><br>
-            <button><a href="{% url 'patient:patlogin' %}">Patient</a></button>
+            <a href="{% url 'patient:RegisterPatient' %}"><button>Patient</button></a>
         </div>
         <div class="login-as">
             <p>Login as</p>
         </div>
         <div class="login-option">
             <img class="icon" src="{% static 'Doctor.png' %}" alt="Doctor Image"><br>
-            <button>Doctor</button>
+            <a href="{% url 'doctor:RegisterDoc' %}"><button>Doctor</button></a>
         </div>
 
     </div>
