@@ -23,20 +23,27 @@
             margin-bottom: auto; /* Pushes the container to the bottom of the flex container */
         }
         .navbar {
-            width: 100%;
-            background-color: #2456c0;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
+            width: 96%;
+            background-color: #f0f0f0;
+            padding: 19px 2%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .navbar .name {
-            float: left;
-            padding-left: 20px;
-            cursor: pointer;
+
+        .navbar-brand {
+            margin: 0;
+            font-size: 25px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
         }
-        .navbar .user {
-            float: right;
-            padding-right: 20px;
+
+        .patient-reg {
+            margin: 0;
+            font-size: 25px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
         }
         .login-form {
             background-color: #fff;
@@ -115,8 +122,8 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="name">DocuMED</div>
-        <div class="user">Patient Registration</div>
+        <div class="navbar-brand">DocuMED</div>
+        <div class="patient-reg">Patient Registration</div>
     </div>
     <div class="container">
         <div class="login-form">
