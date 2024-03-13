@@ -170,32 +170,15 @@
         </form>
       </div>
       <div class="user-dropdown">
-        <i class="fa fa-user-circle" style="font-size: 30px"></i>
-        <div class="user-dropdown-content">
-          <a href="#">Username</a>
-          <a onclick="logout()">Logout</a>
-        </div>
-
+       <!-- <i class="fa fa-user-circle" style="font-size: 30px"></i>
+        <div class="user-dropdown-content">-->
+        <!-- <a href="#">Username</a>-->
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="end-btn" type="submit">Logout</button>
+        </form>
+       <!-- </div>-->
       </div>
-      <script>
-        function logout() {
-            // Create a new form element
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.action = "{% url 'home' %}"; // Replace 'logout' with the actual logout URL
-        
-            // Add a CSRF token input field
-            var csrfToken = document.createElement('input');
-            csrfToken.type = 'hidden';
-            csrfToken.name = 'csrfmiddlewaretoken';
-            csrfToken.value = '{{ csrf_token }}'; // Use Django template tag to get the CSRF token
-            form.appendChild(csrfToken);
-        
-            // Submit the form
-            document.body.appendChild(form);
-            form.submit();
-        }
-        </script>
     </nav>
     <div class="container">
       <div class="row">
