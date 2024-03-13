@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <style>
-        body {
+        /* body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -19,25 +19,10 @@
         }
         .container {
             text-align: center;
-            margin-top: auto; /* Pushes the container to the bottom of the flex container */
-            margin-bottom: auto; /* Pushes the container to the bottom of the flex container */
-        }
-        .navbar {
-            width: 96%;
-            background-color: #f0f0f0;
-            padding: 19px 2%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            margin: 0;
-            font-size: 25px;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-        }
+            margin-top: auto; 
+            margin-bottom: auto; 
+        } */
+        
 
         .patient-reg {
             margin: 0;
@@ -45,59 +30,27 @@
             font-family: Arial, sans-serif;
             font-weight: bold;
         }
-        .login-form {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .login-form input[type="text"],
-        .login-form input[type="email"],
-        .login-form input[type="password"] {
-            background-color: #f0f0f0;
-            width: calc(100% - 40px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            padding-left: 40px;
-        }
-        .login-form input[type="submit"] {
-            width: 50%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #2e1eaa;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .login-form input[type="submit"]:hover {
-            background-color: #1a0d66;
-        }
-        .New {
-            font-size: 15px;
-            color: #333;
-        }   
-        .register {
-            color: #2e1eaa;
-            cursor: pointer;
-        }
-        .row {
-            position: relative;
-        }
-        .row i {
-            position: absolute;
-            left: 10%;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #000000;
-        }
+        
+        
 
 
 /* Navbar Styling */
+.navbar {
+    width: 96%;
+    background-color:  #0bb7e1;
+    padding: 19px 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    margin: 0;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
 
 .name {
   font-size: 24px;
@@ -145,7 +98,9 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"],
-input[name="phone_number"] {
+input[name="phone_number"],
+input[type="number"],
+select{
   width: 100%;
   height: 10px;
   padding-top: 10px;
@@ -155,10 +110,11 @@ input[name="phone_number"] {
   text-align: center; /* Center input text */
 }
 
+
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #333;
+  background-color: #0bb7e1;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -177,7 +133,7 @@ input[name="phone_number"] {
 }
 
 a {
-  color: #333;
+  color: #7d0be1;
   text-decoration: none;
   text-align: center; /* Center link text */
 }
@@ -201,12 +157,12 @@ a:hover {
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                <button class="btn btn-outline-info" type="submit">Register</button>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                Already Have An Account? <a class="ml-2" href="#">Sign In</a>
+                Already Have An Account? <a class="ml-2" href="#">Log In</a>
             </small>
         </div>
     </div>
