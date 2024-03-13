@@ -23,7 +23,7 @@ def RegisterPatient(request):
          form = PatientRegisterForm(request.POST)
          if form.is_valid():
              user_instance = form.save()
-             patient_user = PatientUser.objects.create(user=user_instance,phone_number = form.cleaned_data['phone_number'],name = form.cleaned_data['name'])
+             patient_user = PatientUser.objects.create(user=user_instance,phone_number = form.cleaned_data['phone_number'],age = form.cleaned_data['age'],name = form.cleaned_data['name'],gender = form.cleaned_data['gender'],blood_group = form.cleaned_data['blood_group'])
              #messages.success(request,f'Account created for {username}')
              return redirect('home')
     else:
@@ -72,8 +72,7 @@ class UploadDocuments(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        patient = self.request.user.patientuser
-        context['documents'] = Documents.objects.filter(author = patient)
+        context['documents'] = Documents.objects.all()
         return context
     
     
