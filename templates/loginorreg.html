@@ -8,6 +8,10 @@
     <title>Login Page</title>
     <style>
       body {
+        background-image: url("static/bgimage.jpeg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -17,7 +21,14 @@
         height: 100vh;
         background-color: #f0f0f0;
       }
-
+      .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity (last value) to control the fade */
+    }
         .navbar {
             width: 96%;
             background-color: #f0f0f0;
@@ -46,7 +57,7 @@
         .login-as {
             text-align: center;
             flex-grow: 1;
-            margin-top: 10px;
+            margin-top: 30px;
             font-size: 24px;
             color: #000000;
             font-weight: bold; /* Added bold font-weight */
@@ -97,18 +108,18 @@
     <div class="navbar">
         <div class="navbar-brand">DocuMED</div>
     </div>
-
+    
     <div class="login-options">
         <div class="login-option">
-            <img class="icon" src="{% static 'Patient.png' %}" alt="Patient Image"><br>
-            <a href="{% url 'patient:RegisterPatient' %}"><button>Patient</button></a>
+            <!-- <img class="icon" src="{% static 'Patient.png' %}" alt="Patient Image"><br> -->
+            <a href="{% url 'login' %}"><button>Login</button></a>
         </div>
         <div class="login-as">
-            <p>Register as</p>
+            <p>Login/Register</p>
         </div>
         <div class="login-option">
-            <img class="icon" src="{% static 'Doctor.png' %}" alt="Doctor Image"><br>
-            <a href="{% url 'doctor:RegisterDoc' %}"><button>Doctor</button></a>
+            <!-- <img class="icon" src="{% static 'Doctor.png' %}" alt="Doctor Image"><br> -->
+            <a href="{% url 'land' %}"><button>Register</button></a>
         </div>
 
     </div>

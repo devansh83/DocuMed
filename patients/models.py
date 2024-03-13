@@ -5,14 +5,14 @@ class PatientUser(models.Model):
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     name = models.CharField(max_length=100)
     phone_number = models.IntegerField()
-    age = models.IntegerField()
+    age = models.IntegerField(default=0)
     USERNAME_FIELD = 'username'
     gender_choices = [
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
     ]
-    gender = models.CharField(max_length=10, choices=gender_choices)
+    gender = models.CharField(max_length=10, choices=gender_choices, default=('male', 'Male'))
     blood_group_choices = [
         ('A+', 'A+'),
         ('A-', 'A-'),
@@ -23,7 +23,7 @@ class PatientUser(models.Model):
         ('O+', 'O+'),
         ('O-', 'O-'),
     ]
-    blood_group = models.CharField(max_length=3, choices=blood_group_choices)
+    blood_group = models.CharField(max_length=3, choices=blood_group_choices, default=('A+', 'A+'))
 
 class Medication(models.Model):
     medical_condition = models.CharField(max_length=100)

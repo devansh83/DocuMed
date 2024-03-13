@@ -48,7 +48,7 @@ def redirect_user(request):
 class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
     fields = ['medical_condition', 'medicines', 'file']
-    success_url = reverse_lazy('medupload')
+    success_url = reverse_lazy('patient:medupload')
     login_url = '/patient/login/' 
 
     def form_valid(self, form):
