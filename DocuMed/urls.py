@@ -34,7 +34,7 @@ urlpatterns = [
     path('patient/', include('patients.urls', namespace='patient')),
     path('doctor/', include('doctors.urls', namespace='doctor')),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'),name = 'login'),
-    path('logout/',auth_views.LogoutView.as_view(template_name='loginorreg.html'),name='logout'),
+    path('logout/',auth_views.LogoutView.as_view(next_page='home'),name='logout'),
     path('', home, name='home'),
     path('reg/',land,name='land'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
