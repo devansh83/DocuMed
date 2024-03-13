@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home
+from .views import home,land
 from django.contrib.auth import views as auth_views 
 from doctors import views as doctor_views
 from patients import views as patient_views
@@ -33,6 +33,7 @@ urlpatterns = [
     #path('loginpat/',auth_views.LoginView.as_view(template_name='patients/Login.html'),name = 'patlogin'),
     path('patient/', include('patients.urls', namespace='patient')),
     path('doctor/', include('doctors.urls', namespace='doctor')),
-    path('login/', auth_views.LoginView.as_view(template_name='Login.html'),name = 'login'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'),name = 'login'),
     path('', home, name='home'),
+    path('reg/',land,name='land'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

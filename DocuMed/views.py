@@ -4,6 +4,9 @@ from doctors.models import DoctorUser
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'loginorreg.html')
+
+def land(request):
+    return render(request,'home.html')
 
 

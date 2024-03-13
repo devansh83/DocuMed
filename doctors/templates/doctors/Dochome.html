@@ -93,7 +93,7 @@
                 <p>Age: 45</p>
                 <p>Disease: Flu</p>
             </div>
-            <button type="button"><a href="{% url 'doctor:sharedoc' %}">VIEW ALL</a></button>
+            <a href="{% url 'doctor:sharedoc' %}"><button type="button">VIEW DOCUMENTS</button></a>
         </section>
         
         <section class="section ongoing-patients">
@@ -103,7 +103,7 @@
                 <p>Age: 32</p>
                 <p>Disease: Diabetes</p>
             </div>
-            <button type="button">VIEW ALL</button>
+            <a href="{% url 'doctor:sharedoc' %}"><button type="button">VIEW DOCUMENTS</button></a>
         </section>
     </main>
 </body>
