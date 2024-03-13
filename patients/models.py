@@ -25,13 +25,6 @@ class PatientUser(models.Model):
     ]
     blood_group = models.CharField(max_length=3, choices=blood_group_choices, default=('A+', 'A+'))
 
-DOCUMENT_TYPES = (
-    ('prescription', 'Prescription'),
-    ('lab_report', 'Lab Report'),
-    ('scans', 'Scans'),
-    ('medical_certificate', 'Medical Certificate'),
-)
-
 class Medication(models.Model):
     medical_condition = models.CharField(max_length=100)
     medicines = models.TextField()
@@ -41,5 +34,4 @@ class Medication(models.Model):
 class Documents(models.Model):
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')
-    type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, default='prescription')
    
