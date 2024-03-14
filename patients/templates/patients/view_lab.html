@@ -1,66 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>Lab Reports</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-      .container {
-        padding: 40px;
-        margin: 40px;
-        border: 1px solid #ccc;
-        text-align: center;
-      }
-      .prescription-card {
-        padding: 20px;
-        margin: 10px;
-        border: 1px solid #ccc;
-        text-align: center;
-      }
-      .prescription-icon {
-        font-size: 100px;
-        margin-bottom: 10px;
-        color: red;
-      }
-      .prescription-link {
-        display: block;
-        color: black;
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
-      .prescription-type {
-        font-size: 14px;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            background-color: #f8f8f8;
+        }
+        .navbar {
+            background-color: #0bb7e1;
+            padding: 30px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-left {
+            float: left;
+        }
+        .documed-logo {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 40px;
+            margin: 40px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .prescription-card {
+            width: 200px; /* Set a fixed width for each card */
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .prescription-icon {
+            font-size: 100px;
+            margin-bottom: 10px;
+            color: red;
+        }
+        .prescription-link {
+            display: block;
+            color: black;
+            font-size: 18px;
+            margin-bottom: 10px;
+            overflow: hidden; /* Hide overflowing content */
+            white-space: normal; /* Allow text to wrap */
+            text-overflow: ellipsis; /* Display ellipsis (...) for overflow text */
+        }
+        .prescription-name {
+            margin-top: 10px;
+            word-wrap: normal;
+ /* Break long words to wrap */
+        }
     </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
-  </head>
-  <body>
-    <div class="container">
-      <h1 style="margin-bottom: 20px">Lab Reports</h1>
-
-      <hr />
-      <div style="display: flex; flex-wrap: wrap; justify-content: center">
-        {% for prescription in lab %}
-        <div class="prescription-card">
-          <a
-            href="{{ prescription.file.url }}"
-            target="_blank"
-            class="prescription-link"
-          >
-            <i class="fas fa-file-pdf prescription-icon"></i>
-            {{ prescription.file.name }}
-            <br />
-          </a>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="documed-logo">DocuMed</span>
         </div>
-        {% empty %}
-        <p>No lab reports available.</p>
-        {% endfor %}
-      </div>
+    </nav>
+
+    <div class="container">
+        <h1 style="margin-bottom: 20px">Lab Reports</h1>
+        <hr />
+        <div style="display: flex; flex-wrap: wrap; justify-content: center">
+            {% for prescription in lab %}
+            <div class="prescription-card">
+                <a
+                href="{{ prescription.file.url }}"
+                target="_blank"
+                class="prescription-link"
+                title="{{ prescription.file.name }}" 
+                >
+                <i class="fas fa-file-pdf prescription-icon"></i>
+                <div class="prescription-name">{{ prescription.file.name }}</div>
+                </a>
+            </div>
+            {% empty %}
+            <p>No lab report available.</p>
+            {% endfor %}
+        </div>
     </div>
-  </body>
+</body>
 </html>
