@@ -1,13 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <style>
       body {
@@ -28,44 +25,29 @@
       .navbar-brand {
         margin: 0;
       }
-      .search-container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 100px;
-      }
-      .example {
-        display: flex;
-        margin: auto;
-        max-width: 600px;
-      }
-      .example input[type="text"] {
-        flex: 1;
-        padding: 10px;
-        font-size: 17px;
-        border: 1px solid grey;
+      .end-btn {
+        background-color: #daa521;
+        border: none;
+        width: 120px;
+        height: 40px;
+        font-size: 18px;
+        color: #ffffff;
         border-radius: 20px;
-        background: #f1f1f1;
-        outline: none;
-        margin-right: 5px;
-        margin-bottom: 0;
-        width: calc(100% - 60px);
-      }
-      .example button {
-        padding: 10px 20px;
-        background: #2196f3;
-        color: white;
-        font-size: 17px;
-        border: 1px solid grey;
-        border-radius: 20px;
+        font-weight: bold;
         cursor: pointer;
-        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: background-color 0.3s;
       }
-      .example button:hover {
-        background: #0b7dda;
+      .end-btn::after {
+        content: "\2192"; /* Unicode for right arrow */
+        margin-left: 5px;
       }
+      .end-btn:hover {
+        background-color: #c6951b;
+      }
+
       .container {
         display: flex;
         flex-direction: column;
@@ -98,174 +80,95 @@
       .section h3 {
         margin-bottom: 10px;
       }
-      .treatments_photo {
+      .icon {
         max-width: 100%;
         height: auto;
         margin-bottom: 10px;
-        max-height: 200px; /* Added max height to prevent overlap */
+        max-height: 150px; /* Added max height to make images symmetrical */
       }
-      .end-btn {
-        background-color: #daa521;
-        border: none;
-        width: 120px;
-        height: 40px;
-        font-size: 18px;
-        color: #ffffff;
+      .access-btn {
+        background-color: blue;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
         border-radius: 20px;
-        font-weight: bold;
+        padding: 10px 20px;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        margin-top: 10px;
         transition: background-color 0.3s;
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      .end-btn::after {
-        content: "\2192"; /* Unicode for right arrow */
-        margin-left: 5px;
-      }
-      .end-btn:hover {
-        background-color: #c6951b;
-      }
-      .user-dropdown {
-        position: relative;
-      }
-      .user-dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        right: 0;
-      }
-      .user-dropdown:hover .user-dropdown-content {
-        display: block;
-      }
-      .user-dropdown-content a {
-        color: black;
-        padding: 12px 16px;
         text-decoration: none;
-        display: block;
       }
-      .user-dropdown-content a:hover {
-        background-color: #f1f1f1;
+      .access-btn:hover {
+        background-color: #0b7dda;
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <nav class="navbar">
-      <div class="navbar-brand">DocuMED</div>
-      <div class="search-container">
-        <form class="example" action="/action_page.php">
-          <input
-            type="text"
-            placeholder="Search 'Hospital' or 'Doctor'"
-            name="search2"
-          />
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
-      <div class="user-dropdown">
-       <!-- <i class="fa fa-user-circle" style="font-size: 30px"></i>
-        <div class="user-dropdown-content">-->
-        <!-- <a href="#">Username</a>-->
-          <form action="{% url 'logout' %}" method="post">
+        <div class="navbar-brand">DocuMED</div>
+        <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button class="end-btn" type="submit">Logout</button>
         </form>
-       <!-- </div>-->
-      </div>
     </nav>
     <div class="container">
-      <div class="row">
-        <div class="section">
-          <div class="section-content">
-            <h3>Treatments</h3>
-            <br />
-            <img
-              class="icon"
-              src="{% static 'Treatments.png' %}"
-              alt="Treatments Photo"
-            /><br />
+        <div class="row">
+            <div class="section">
+                <div class="section-content">
+                    <h3>Treatments</h3>
+                    <br>
+                    <img class="icon" src="{% static 'Treatments.png' %}" alt="Treatments Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:docupload' %}">Access</a>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h3>Current Prescriptions</h3>
+                    <img class="icon" src="{% static 'current_prescriptions.png' %}" alt="Current Prescriptions Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:medupload' %}">Access</a>
+            </div>
+            <div class="section">
+              <div class="section-content">
+                  <h3>Share</h3>
+                  <img class="icon" src="{% static 'share.png' %}" alt="Share Photo" /><br />
+              </div>
+              <a class="access-btn" href="{% url 'patient:sharedoc' %}">Access</a>
           </div>
-          <button class="end-btn">
-            <a href="{% url 'patient:docupload' %}">Access</a>
-          </button>
         </div>
-        <div class="section" style="max-width: 400px">
-          <!-- Increased width for Current Prescriptions -->
-          <div class="section-content">
-            <h3>Current Prescriptions</h3>
-            <img
-              class="icon"
-              src="{% static 'current_prescriptions.png' %}"
-              alt="Current Prescriptions Photo"
-            /><br />
-          </div>
-          <br />
-          <button class="end-btn">
-            <a href="{% url 'patient:medupload' %}">Access</a>
-          </button>
+        <div class="row">
+            <div class="section">
+                <div class="section-content">
+                    <h3>Prescriptions</h3>
+                    <br>
+                    <img class="icon" src="{% static 'prescriptions.png' %}" alt="Prescriptions Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:view_prescription' %}">Access</a>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h3>Lab Reports</h3>
+                    <br>
+                    <img class="icon" src="{% static 'Lab reports.png' %}" alt="Lab Reports Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:view_lab' %}">Access</a>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h3>View Scans</h3>
+                    <br>
+                    <img class="icon" src="{% static 'view scans.png' %}" alt="View Scans Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:view_scans' %}">Access</a>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h3>Medical Certificates</h3>
+                    <img class="icon" src="{% static 'medical certificates.png' %}" alt="Medical Certificates Photo" /><br />
+                </div>
+                <a class="access-btn" href="{% url 'patient:view_certificate' %}">Access</a>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="section">
-          <div class="section-content">
-            <h3>Prescriptions</h3>
-            <img
-              class="icon"
-              src="{% static 'prescriptions.png' %}"
-              alt="Prescriptions Photo"
-            /><br />
-          </div>
-          <button class="end-btn">
-            <a href="{% url 'patient:view_prescription' %}">Access</a>
-          </button>
-        </div>
-        <div class="section">
-          <div class="section-content">
-            <h3>Lab Reports</h3>
-            <br />
-            <img
-              class="icon"
-              src="{% static 'Lab reports.png' %}"
-              alt="Lab Reports Photo"
-            /><br />
-          </div>
-          <button class="end-btn">
-            {% comment %} <a href="{% url 'patient:sharedoc' %}">Access</a> {% endcomment %}
-            <a href="{% url 'patient:view_lab' %}">Access</a>
-          </button>
-        </div>
-        <div class="section">
-          <div class="section-content">
-            <h3>View Scans</h3>
-            <img
-              class="icon"
-              src="{% static 'view scans.png' %}"
-              alt="View Scans Photo"
-            /><br />
-          </div>
-          <button class="end-btn"><a href="{% url 'patient:view_scans' %}">Access</a></button>
-        </div>
-        <div class="section" style="max-width: 400px">
-          <!-- Increased width for Medical Certificates -->
-          <div class="section-content">
-            <h3>Medical Certificates</h3>
-            <img
-              class="icon"
-              src="{% static 'medical certificates.png' %}"
-              alt="Medical Certificates Photo"
-            /><br />
-          </div>
-          <br />
-          <button class="end-btn"><a href="{% url 'patient:view_certificate' %}">Access</a></button>
-        </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>
