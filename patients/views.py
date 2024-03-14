@@ -80,6 +80,9 @@ class UploadDocuments(LoginRequiredMixin, CreateView):
     
 @login_required
 def share_documents(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = request.user.patientuser
     documents = Documents.objects.filter(author=patient)
     doctors = DoctorUser.objects.all()
@@ -103,6 +106,9 @@ def share_documents(request):
 
 @login_required
 def view_prescription(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = request.user.patientuser
     prescriptions = Documents.objects.filter(author=patient, type='prescription')
     context = {'prescriptions': prescriptions}
@@ -110,6 +116,9 @@ def view_prescription(request):
 
 @login_required
 def view_scans(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = request.user.patientuser
     scans = Documents.objects.filter(author=patient, type='scans')
     context = {'scans': scans}
@@ -117,6 +126,9 @@ def view_scans(request):
 
 @login_required
 def view_lab(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = request.user.patientuser
     lab = Documents.objects.filter(author=patient, type='lab_report')
     context = {'lab': lab}
@@ -124,6 +136,9 @@ def view_lab(request):
 
 @login_required
 def view_certificate(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = request.user.patientuser
     certificate = Documents.objects.filter(author=patient, type='medical_certificate')
     context = {'certificate': certificate}

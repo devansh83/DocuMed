@@ -61,6 +61,9 @@ class UploadPrescription(LoginRequiredMixin, CreateView):
 
 @login_required
 def shared_documents(request):
+    user = request.user
+    if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
     doctor = request.user.doctoruser
     shared_docs = SharedDocument.objects.filter(doctor=doctor)
     return render(request, 'doctors/shared_documents.html', {'shared_docs': shared_docs})
