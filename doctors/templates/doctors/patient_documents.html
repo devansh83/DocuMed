@@ -1,0 +1,15 @@
+{% block content %}
+<h1>Documents Shared by {{ patient.name }}</h1>
+
+<div>
+  {% for shared_doc in shared_docs %}
+  <div>
+    <h3>{{ shared_doc.document.file.name }}</h3>
+    <p>Type: {{ shared_doc.document.get_type_display }}</p>
+    <a href="{{ shared_doc.document.file.url }}" target="_blank">View Document</a>
+  </div>
+  {% empty %}
+  <p>No documents shared by this patient.</p>
+  {% endfor %}
+</div>
+{% endblock %}

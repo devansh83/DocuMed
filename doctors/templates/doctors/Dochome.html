@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,7 +121,7 @@
                 <p>Age: 45</p>
                 <p>Disease: Flu</p>
             </div>
-            <a href="{% url 'doctor:sharedoc' %}"><button type="button">VIEW DOCUMENTS</button></a>
+            <a href="{% url 'doctor:shared_documents' %}"><button type="button">VIEW DOCUMENTS</button></a>
         </section>
         
         <section class="section ongoing-patients">
@@ -131,6 +131,139 @@
                 <p>Age: 32</p>
                 <p>Disease: Diabetes</p>
             </div>
+            <a href="{% url 'doctor:view_patient_documents' %}"><button type="button">VIEW DOCUMENTS</button></a>
+        </section>
+    </main>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuMED Patient Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px; /* Adjust the margin as needed */
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center; /* Center vertically */
+            flex-grow: 1; /* Allow the search bar to take up remaining space */
+        }
+
+        .search-bar input {
+            padding: 10px 20px;
+            width: 30%; /* Adjust the width as needed */
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section {
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #eaeaea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: black;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="brand-name">DocuMED</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for 'Patients'">
+        </div>
+    </header>
+    <div class="user-dropdown">
+      <i class="fa fa-user-circle" style="font-size: 30px"></i>
+      <div class="user-dropdown-content">
+        <a href="#">{{ request.user.username }}</a>
+        <a onclick="logout()">Logout</a>
+      </div>
+    </div>
+    <script>
+      function logout() {
+          // Create a new form element
+          var form = document.createElement('form');
+          form.method = 'POST';
+          form.action = "{% url 'logout' %}"; // Replace 'logout' with the actual logout URL
+      
+          // Add a CSRF token input field
+          var csrfToken = document.createElement('input');
+          csrfToken.type = 'hidden';
+          csrfToken.name = 'csrfmiddlewaretoken';
+          csrfToken.value = '{{ csrf_token }}'; // Use Django template tag to get the CSRF token
+          form.appendChild(csrfToken);
+      
+          // Submit the form
+          document.body.appendChild(form);
+          form.submit();
+      }
+    </script>
+    
+    <main class="main-content">
+        <section class="section patients">
+            <h1>Patients</h1>
+            {% for patient in shared_patients %}
+            <div class="card">
+                <p>Name: {{ patient.name }}</p>
+                <p>Age: {{ patient.age }}</p>
+                <p>Gender: {{ patient.get_gender_display}}</p>
+                <a href="{% url 'doctor:patient_documents' patient.name %}">View Documents</a>
+            </div>
+            {% empty %}
+            <p>No patients found.</p>
+            {% endfor %}
             <a href="{% url 'doctor:sharedoc' %}"><button type="button">VIEW DOCUMENTS</button></a>
         </section>
     </main>
