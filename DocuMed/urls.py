@@ -27,7 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('docreg/',doctor_views.RegisterDoc,name = 'RegisterDoc'),
     #path('patreg/',patient_views.RegisterPatient,name = 'RegisterPatient'),
-    path('', doctor_views.redirect_user, name='redirect_user'),
+    path('redirect/', doctor_views.redirect_user, name='redirect_user'),
     #path('redirectpat/', patient_views.redirect_user, name='redirect_pat'),
     #path('logindoc/',auth_views.LoginView.as_view(template_name='doctors/Login.html'),name = 'Doclogin'),
     #path('loginpat/',auth_views.LoginView.as_view(template_name='patients/Login.html'),name = 'patlogin'),
