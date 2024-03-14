@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Medical Certificates</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        padding: 40px;
+        margin: 40px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      .prescription-card {
+        padding: 20px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      .prescription-icon {
+        font-size: 100px;
+        margin-bottom: 10px;
+        color: red;
+      }
+      .prescription-link {
+        display: block;
+        color: black;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .prescription-type {
+        font-size: 14px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="margin-bottom: 20px">Medical Certificates</h1>
+
+      <hr />
+      <div style="display: flex; flex-wrap: wrap; justify-content: center">
+        {% for prescription in certificate %}
+        <div class="prescription-card">
+          <a
+            href="{{ prescription.file.url }}"
+            target="_blank"
+            class="prescription-link"
+          >
+            <i class="fas fa-file-pdf prescription-icon"></i>
+            {{ prescription.file.name }}
+            <br />
+          </a>
+        </div>
+        {% empty %}
+        <p>No certificates available.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

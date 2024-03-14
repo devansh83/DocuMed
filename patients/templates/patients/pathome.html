@@ -186,7 +186,11 @@
           <div class="section-content">
             <h3>Treatments</h3>
             <br />
-            <img class="icon" src="{% static 'Treatments.png' %}" alt="Treatments Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'Treatments.png' %}"
+              alt="Treatments Photo"
+            /><br />
           </div>
           <button class="end-btn">
             <a href="{% url 'patient:docupload' %}">Access</a>
@@ -196,7 +200,11 @@
           <!-- Increased width for Current Prescriptions -->
           <div class="section-content">
             <h3>Current Prescriptions</h3>
-            <img class="icon" src="{% static 'current_prescriptions.png' %}" alt="Current Prescriptions Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'current_prescriptions.png' %}"
+              alt="Current Prescriptions Photo"
+            /><br />
           </div>
           <br />
           <button class="end-btn">
@@ -208,35 +216,54 @@
         <div class="section">
           <div class="section-content">
             <h3>Prescriptions</h3>
-            <img class="icon" src="{% static 'prescriptions.png' %}" alt="Prescriptions Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'prescriptions.png' %}"
+              alt="Prescriptions Photo"
+            /><br />
           </div>
-          <button class="end-btn">Access</button>
+          <button class="end-btn">
+            <a href="{% url 'patient:view_prescription' %}">Access</a>
+          </button>
         </div>
         <div class="section">
           <div class="section-content">
             <h3>Lab Reports</h3>
             <br />
-            <img class="icon" src="{% static 'Lab reports.png' %}" alt="Lab Reports Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'Lab reports.png' %}"
+              alt="Lab Reports Photo"
+            /><br />
           </div>
           <button class="end-btn">
-            <a href="{% url 'patient:sharedoc' %}">Access</a>
+            {% comment %} <a href="{% url 'patient:sharedoc' %}">Access</a> {% endcomment %}
+            <a href="{% url 'patient:view_lab' %}">Access</a>
           </button>
         </div>
         <div class="section">
           <div class="section-content">
             <h3>View Scans</h3>
-            <img class="icon" src="{% static 'view scans.png' %}" alt="View Scans Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'view scans.png' %}"
+              alt="View Scans Photo"
+            /><br />
           </div>
-          <button class="end-btn">Access</button>
+          <button class="end-btn"><a href="{% url 'patient:view_scans' %}">Access</a></button>
         </div>
         <div class="section" style="max-width: 400px">
           <!-- Increased width for Medical Certificates -->
           <div class="section-content">
             <h3>Medical Certificates</h3>
-            <img class="icon" src="{% static 'medical certificates.png' %}" alt="Medical Certificates Photo"><br>
+            <img
+              class="icon"
+              src="{% static 'medical certificates.png' %}"
+              alt="Medical Certificates Photo"
+            /><br />
           </div>
           <br />
-          <button class="end-btn">Access</button>
+          <button class="end-btn"><a href="{% url 'patient:view_certificate' %}">Access</a></button>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class PatientUser(models.Model):
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     name = models.CharField(max_length=100)
@@ -32,6 +33,13 @@ class Medication(models.Model):
     file = models.FileField(upload_to='')    
 
 class Documents(models.Model):
+    DOCUMENT_TYPES = (
+    ('prescription', 'Prescription'),
+    ('lab_report', 'Lab Report'),
+    ('scans', 'Scans'),
+    ('medical_certificate', 'Medical Certificate'),
+)
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')
+    type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, default = 'prescription')
    
