@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Medication, Documents,PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from .forms import PatientRegisterForm
+from .forms import PatientRegisterForm, DocumentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from doctors.models import DoctorUser, SharedDocument
@@ -56,23 +56,25 @@ class UploadMedication(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+        patient = self.request.user.patientuser
         context = super().get_context_data(**kwargs)
-        context['medications'] = Medication.objects.all()
+        context['medications'] = Medication.objects.filter(author = patient)
         return context
     
 class UploadDocuments(LoginRequiredMixin, CreateView):
     model = Documents
-    fields = ['file']
+    form_class = DocumentForm
     success_url = reverse_lazy('patient:docupload')
     login_url = '/patient/login/'
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user.patientuser
         return super().form_valid(form)
-    
+
     def get_context_data(self, **kwargs):
+        patient = self.request.user.patientuser
         context = super().get_context_data(**kwargs)
-        context['documents'] = Documents.objects.all()
+        context['documents'] = Documents.objects.filter(author=patient)
         return context
     
     
@@ -95,3 +97,34 @@ def share_documents(request):
         return redirect('patient:patient-home')
 
     return render(request, 'patients/share_documents.html', {'documents': documents, 'doctors': doctors})
+
+
+#cretae a view to only showcasse documents with type prescriptio
+
+@login_required
+def view_prescription(request):
+    patient = request.user.patientuser
+    prescriptions = Documents.objects.filter(author=patient, type='prescription')
+    context = {'prescriptions': prescriptions}
+    return render(request, 'patients/view_prescription.html', context)
+
+@login_required
+def view_scans(request):
+    patient = request.user.patientuser
+    scans = Documents.objects.filter(author=patient, type='scans')
+    context = {'scans': scans}
+    return render(request, 'patients/view_scans.html', context)
+
+@login_required
+def view_lab(request):
+    patient = request.user.patientuser
+    lab = Documents.objects.filter(author=patient, type='lab_report')
+    context = {'lab': lab}
+    return render(request, 'patients/view_lab.html', context)
+
+@login_required
+def view_certificate(request):
+    patient = request.user.patientuser
+    certificate = Documents.objects.filter(author=patient, type='medical_certificate')
+    context = {'certificate': certificate}
+    return render(request, 'patients/view_certificate.html', context)
