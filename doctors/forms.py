@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import DoctorUser,Appointment
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile,Day
-from patients.models import PatientUser
+from patients.models import PatientUser, Documents
 
 class DoctorRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -29,4 +29,9 @@ class ScheduleAppointment(forms.ModelForm):
     class Meta:
         model=Appointment
         fields = ['FollowUpDate']
+        
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Documents
+        fields = ['file', 'type']
     

@@ -22,6 +22,7 @@ class SharedDocument(models.Model):
     document = models.ForeignKey(Documents, on_delete=models.CASCADE)
     doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
+    verified = models.BooleanField(default=False)
 
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),
