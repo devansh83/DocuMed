@@ -38,6 +38,7 @@
             margin: 10px;
             border: 1px solid #ccc;
             text-align: center;
+            position: relative; /* Position the card relative to its container */
         }
         .prescription-icon {
             font-size: 100px;
@@ -57,6 +58,21 @@
             margin-top: 10px;
             word-wrap: normal;
         }
+        .delete-btn {
+            position: absolute; /* Position the delete button absolutely */
+            top: 5px; /* Adjust the top position */
+            right: 5px; /* Adjust the right position */
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
     <link
       rel="stylesheet"
@@ -75,7 +91,7 @@
         <hr />
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in scans %}
-            <div class="prescription-card">
+            <div class="prescription-card" id="scan-{{ prescription.id }}">
                 <a
                 href="{{ prescription.file.url }}"
                 target="_blank"
@@ -84,6 +100,7 @@
                 >
                 <i class="fas fa-file-pdf prescription-icon"></i>
                 <div class="prescription-name">{{ prescription.file.name }}</div>
+                <button class="delete-btn" onclick="deletescans('{{ prescription.id }}', event)">X</button>
                 </a>
             </div>
             {% empty %}
@@ -91,5 +108,25 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        function deletescans(scanId, event) {
+            event.preventDefault();
+            var url = '/patient/delete-scan/' + scanId + '/'; // Adjust the URL as per your Django URL configuration
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("scan-" + scanId).remove(); // Remove the scan card from the UI
+                } else {
+                    console.error('Failed to delete scan');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

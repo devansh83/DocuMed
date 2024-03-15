@@ -57,6 +57,46 @@ class DeleteMedication(View):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
         
+class DeletePrescription(View):
+    def delete(self, request, Documents_id):
+        try:
+            medication = Documents.objects.get(pk=Documents_id)
+            medication.delete()
+            return JsonResponse({'message': 'Medication deleted successfully'})
+        except Documents.DoesNotExist:
+            return JsonResponse({'error': 'Medication not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+class DeleteLab(View):
+    def delete(self, request, lab_id):
+        try:
+            lab = Documents.objects.get(pk=lab_id)
+            lab.delete()
+            return JsonResponse({'message': 'Lab report deleted successfully'})
+        except Documents.DoesNotExist:
+            return JsonResponse({'error': 'Lab report not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+class DeleteScans(View):
+    def delete(self, request, scan_id):
+        try:
+            lab = Documents.objects.get(pk=scan_id)
+            lab.delete()
+            return JsonResponse({'message': 'Scans deleted successfully'})
+        except Documents.DoesNotExist:
+            return JsonResponse({'error': 'Scans not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+class DeleteCertificates(View):
+    def delete(self, request, certificate_id):
+        try:
+            lab = Documents.objects.get(pk=certificate_id)
+            lab.delete()
+            return JsonResponse({'message': 'Medical Certificates deleted successfully'})
+        except Documents.DoesNotExist:
+            return JsonResponse({'error': 'Medical Certifcates not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
     fields = ['medical_condition', 'medicines', 'file']

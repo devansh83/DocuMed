@@ -38,6 +38,7 @@
             margin: 10px;
             border: 1px solid #ccc;
             text-align: center;
+            position: relative; /* Add position relative for absolute positioning of delete button */
         }
         .prescription-icon {
             font-size: 100px;
@@ -55,6 +56,21 @@
         }
         .prescription-type {
             font-size: 14px;
+        }
+        .delete-btn {
+            position: absolute; /* Position the delete button absolutely */
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
     <link
@@ -74,16 +90,37 @@
         <hr />
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in prescriptions %}
-            <div class="prescription-card">
+            <div class="prescription-card" id="prescription-{{ prescription.id }}">
                 <a href="{{ prescription.file.url }}" target="_blank" class="prescription-link" title="{{ prescription.file.name }}">
                     <i class="fas fa-file-pdf prescription-icon"></i>
                     <div>{{ prescription.file.name }}</div>
                 </a>
+                <button class="delete-btn" onclick="deletePrescription('{{ prescription.id }}')">X</button>
             </div>
             {% empty %}
             <p>No prescriptions available.</p>
             {% endfor %}
         </div>
     </div>
+
+    <script>
+        function deletePrescription(prescriptionId) {
+            var url = '/patient/delete-prescription/' + prescriptionId + '/'; // Adjust the URL as per your Django URL configuration
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("prescription-" + prescriptionId).remove(); // Remove the prescription card from the UI
+                } else {
+                    console.error('Failed to delete prescription');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
