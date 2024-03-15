@@ -1,0 +1,9 @@
+{% block content %}
+<!-- select_working_days.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,18 +1,20 @@
 from django.shortcuts import render,redirect
-from .models import Prescription,DoctorUser,SharedDocument
+from .models import Prescription,DoctorUser,SharedDocument,Profile
 from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import DoctorRegisterForm
+from .forms import DoctorRegisterForm,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
-
 from django.utils import timezone
 
 @login_required
 def home(request):
+    user = request.user
+    if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
     doctor = request.user.doctoruser
     shared_docs = SharedDocument.objects.filter(doctor=doctor)
     shared_patients = set([doc.patient for doc in shared_docs])
@@ -20,6 +22,7 @@ def home(request):
     context = {
         'shared_docs': shared_docs,
         'shared_patients': shared_patients,
+        'user': user,
     }
     
     return render(request, 'doctors/dochome.html', context)
@@ -100,6 +103,9 @@ def shared_documents(request):
 
 @login_required
 def patient_documents(request, patient_name):
+    user = request.user
+    if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
     patient = get_object_or_404(PatientUser, name=patient_name)
     shared_docs = SharedDocument.objects.filter(patient=patient, doctor=request.user.doctoruser)
 
@@ -109,3 +115,25 @@ def patient_documents(request, patient_name):
     }
 
     return render(request, 'doctors/patient_documents.html', context)
+
+@login_required
+def updateform(request):
+     user = request.user
+     if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
+     if request.method=="POST":
+         form = ProfileUpdateForm(request.POST)
+         if form.is_valid():
+             doctor = request.user.doctoruser
+             profile=Profile.objects.get(doctor_user=doctor)
+             profile.specialization=form.cleaned_data['specialization']
+             profile.hospital=form.cleaned_data['hospital']
+             selected_days=form.cleaned_data['working_days']
+             profile.working_days.set(selected_days)
+             return redirect('doctor:doctor-home')
+
+     else:
+        form = ProfileUpdateForm()   
+
+     return render(request, 'doctors/update.html', {'form': form})   
+    
