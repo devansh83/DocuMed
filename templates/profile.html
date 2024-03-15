@@ -1,0 +1,7 @@
+{% block content %}
+<h1> {{ profile.doctor_user.name }}</h1>
+{% for day in profile.working_days.all %}
+    {{ day.name }},
+{% endfor %}
+
+{% endblock %}
