@@ -38,6 +38,7 @@
             margin: 10px;
             border: 1px solid #ccc;
             text-align: center;
+            position: relative; /* Add position relative for absolute positioning of delete button */
         }
         .prescription-icon {
             font-size: 100px;
@@ -56,7 +57,22 @@
         .prescription-name {
             margin-top: 10px;
             word-wrap: normal;
- /* Break long words to wrap */
+            /* Break long words to wrap */
+        }
+        .delete-btn {
+            position: absolute; /* Position the delete button absolutely */
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
     <link
@@ -76,15 +92,11 @@
         <hr />
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in lab %}
-            <div class="prescription-card">
-                <a
-                href="{{ prescription.file.url }}"
-                target="_blank"
-                class="prescription-link"
-                title="{{ prescription.file.name }}" 
-                >
-                <i class="fas fa-file-pdf prescription-icon"></i>
-                <div class="prescription-name">{{ prescription.file.name }}</div>
+            <div class="prescription-card" id="lab-report-{{ prescription.id }}">
+                <a href="{{ prescription.file.url }}" target="_blank" class="prescription-link" title="{{ prescription.file.name }}">
+                    <i class="fas fa-file-pdf prescription-icon"></i>
+                    <div class="prescription-name">{{ prescription.file.name }}</div>
+                    <button class="delete-btn" onclick="deleteLab('{{ prescription.id }}')">X</button>
                 </a>
             </div>
             {% empty %}
@@ -92,5 +104,25 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        function deleteLab(labId) {
+            event.preventDefault();
+            var url = '/patient/delete-lab/' + labId + '/'; // Adjust the URL as per your Django URL configuration
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("lab-report-" + labId).remove(); // Remove the lab report card from the UI
+                } else {
+                    console.error('Failed to delete lab report');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

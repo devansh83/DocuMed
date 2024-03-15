@@ -33,6 +33,7 @@
             text-align: center;
         }
         .prescription-card {
+            position: relative; /* Position the card relative to its container */
             width: 200px; /* Set a fixed width for each card */
             padding: 20px;
             margin: 10px;
@@ -57,6 +58,21 @@
             margin-top: 10px;
             word-wrap: normal; /* Break long words to wrap */
         }
+        .delete-btn {
+            position: absolute; /* Position the delete button absolutely */
+            top: 5px; /* Adjust the top position */
+            right: 5px; /* Adjust the right position */
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
     <link
       rel="stylesheet"
@@ -75,7 +91,7 @@
         <hr />
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in certificate %}
-            <div class="prescription-card">
+            <div class="prescription-card" id="certificate-{{ prescription.id }}">
                 <a
                 href="{{ prescription.file.url }}"
                 target="_blank"
@@ -84,6 +100,7 @@
                 >
                 <i class="fas fa-file-pdf prescription-icon"></i>
                 <div class="prescription-name">{{ prescription.file.name }}</div>
+                <button class="delete-btn" onclick="deleteCertificate('{{ prescription.id }}')">X</button>
                 </a>
             </div>
             {% empty %}
@@ -91,5 +108,25 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        function deleteCertificate(certificateId) {
+            event.preventDefault();
+            var url = '/patient/delete-certificate/' + certificateId + '/'; // Adjust the URL as per your Django URL configuration
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("certificate-" + certificateId).remove(); // Remove the certificate card from the UI
+                } else {
+                    console.error('Failed to delete certificate');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>
