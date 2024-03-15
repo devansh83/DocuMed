@@ -16,6 +16,7 @@ urlpatterns = [
     path('prescription/', views.view_prescription, name='view_prescription'),
     path('scans/', views.view_scans, name='view_scans'),
     path('labreports/', views.view_lab, name='view_lab'),
+    path('appointments/',views.view_appointments,name='appointments'),
     path('certificates/', views.view_certificate, name='view_certificate'),
     path('delete-medication/<int:medication_id>/', patient_views.DeleteMedication.as_view(), name='delete_medication'),  # Add this line
     path('delete-prescription/<int:Documents_id>/', patient_views.DeletePrescription.as_view(), name='delete_prescription'),

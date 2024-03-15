@@ -42,4 +42,7 @@ class Documents(models.Model):
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')
     type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, default = 'prescription')
+
+
+
    

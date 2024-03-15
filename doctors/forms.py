@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import DoctorUser
+from .models import DoctorUser,Appointment
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile,Day
+from patients.models import PatientUser
 
 class DoctorRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -21,4 +22,11 @@ class ProfileUpdateForm(forms.ModelForm):
      class Meta:
          model=Profile
          fields= ['specialization','hospital','working_days']
+
+class ScheduleAppointment(forms.ModelForm):
+    FollowUpDate = forms.DateTimeField()
+
+    class Meta:
+        model=Appointment
+        fields = ['FollowUpDate']
     
