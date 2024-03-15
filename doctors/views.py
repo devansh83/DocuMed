@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Prescription,DoctorUser,SharedDocument,Profile
+from .models import Prescription,DoctorUser,SharedDocument,Profile,Appointment
 from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import DoctorRegisterForm,ProfileUpdateForm
+from .forms import DoctorRegisterForm,ProfileUpdateForm,ScheduleAppointment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -135,5 +135,24 @@ def updateform(request):
      else:
         form = ProfileUpdateForm()   
 
-     return render(request, 'doctors/update.html', {'form': form})   
+     return render(request, 'doctors/update.html', {'form': form})  
+
+@login_required
+def Schedule(request,patient_id):
+     user = request.user
+     if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
+     
+     if request.method=="POST":
+       doctor = request.user.doctoruser
+       patient = get_object_or_404(PatientUser, user__username=patient_id)
+       form = ScheduleAppointment(request.POST)
+       if form.is_valid():
+            Appointment.objects.create(patient=patient,doctor=doctor,date=form.cleaned_data['FollowUpDate'])
+            return redirect('doctor:doctor-home')
+     else:
+         form=ScheduleAppointment()
+
+     return render(request,'doctors/appointmentadd.html',{'form':form})      
+
     

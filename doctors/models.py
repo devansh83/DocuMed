@@ -44,4 +44,17 @@ class Profile(models.Model):
     hospital = models.CharField(max_length=100)
     working_days = models.ManyToManyField(Day)
 
+class Appointment(models.Model):
+    patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE,null = True)
+    doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
+    class Meta:
+        ordering = ['-date']  # Display appointments with the latest added appointment first
+
+    def __str__(self):
+        return f'{self.doctor.name} - {self.date.strftime("%d/%m/%Y %H:%M")}'   
+
+    
+
 

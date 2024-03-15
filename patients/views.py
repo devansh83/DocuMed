@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from .forms import PatientRegisterForm, DocumentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from doctors.models import DoctorUser, SharedDocument
+from doctors.models import DoctorUser, SharedDocument,Appointment
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
@@ -204,3 +204,13 @@ def view_certificate(request):
     certificate = Documents.objects.filter(author=patient, type='medical_certificate')
     context = {'certificate': certificate}
     return render(request, 'patients/view_certificate.html', context)
+
+@login_required
+def view_appointments(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
+    patient = request.user.patientuser
+    appointments = Appointment.objects.filter(patient=patient)
+    context = {'appointments' : appointments}
+    return render(request,'patients/appointments.html',context)
