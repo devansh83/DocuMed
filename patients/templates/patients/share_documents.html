@@ -51,6 +51,7 @@
             border-radius: 5px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
+            overflow: hidden;
         }
 
         .form-control:focus {
@@ -153,11 +154,13 @@
 
         <div class="form-group">
             <h3>Documents</h3>
-            {% for document in documents %}
-                <div>
-                    <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
-                </div>
-            {% endfor %}
+            <div style="max-height: 200px; overflow-y: auto;">
+                {% for document in documents %}
+                    <div>
+                        <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         <button type="submit">Share</button>
@@ -216,29 +219,4 @@
                 doctorSpan.textContent = doctor;
 
                 const removeIcon = document.createElement('span');
-                removeIcon.textContent = '\u00D7';
-                removeIcon.className = 'remove-doctor';
-                removeIcon.addEventListener('click', function() {
-                    const doctorOption = doctorsSelect.options.namedItem(doctor);
-                    doctorOption.selected = false;
-                    doctorSpan.remove();
-                });
-
-                doctorSpan.appendChild(removeIcon);
-                selectedDoctorsContainer.appendChild(doctorSpan);
-            });
-        });
-
-        selectedDoctorsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('remove-doctor')) {
-                const doctorName = event.target.parentElement.textContent.trim();
-                const doctorOption = doctorsSelect.querySelector(`option[value="${doctorName}"]`);
-                if (doctorOption) {
-                    doctorOption.selected = false;
-                }
-                event.target.parentElement.remove();
-            }
-        });
-    </script>
-</body>
-</html>
+                removeIcon.textContent =
