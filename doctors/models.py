@@ -23,4 +23,24 @@ class SharedDocument(models.Model):
     doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
 
+DAYS_OF_WEEK = (
+    ('Monday', 'Monday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
+    ('Sunday', 'Sunday'),
+)
+
+class Day(models.Model):
+    name = models.CharField(max_length=20)
+
+class Profile(models.Model):
+    doctor_user = models.OneToOneField(DoctorUser, on_delete=models.CASCADE, null=True)
+    specialization = models.CharField(max_length=100)
+    hospital = models.CharField(max_length=100)
+    working_days = models.ManyToManyField(Day)
+
+
 
