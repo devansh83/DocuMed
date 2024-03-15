@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Prescription,DoctorUser,SharedDocument,Profile
+from .models import Prescription,DoctorUser,SharedDocument,Profile,Appointment
 from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import DoctorRegisterForm,ProfileUpdateForm
+from .forms import DoctorRegisterForm,ProfileUpdateForm,ScheduleAppointment,DocumentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -103,15 +103,25 @@ def shared_documents(request):
 
 @login_required
 def patient_documents(request, patient_name):
-    user = request.user
-    if not DoctorUser.objects.filter(user=user).exists():
-        return redirect('login')
     patient = get_object_or_404(PatientUser, name=patient_name)
-    shared_docs = SharedDocument.objects.filter(patient=patient, doctor=request.user.doctoruser)
+    doctor = request.user.doctoruser
+    shared_docs = SharedDocument.objects.filter(patient=patient, doctor=doctor)
+
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            document = form.save(commit=False)
+            document.author = patient
+            document.save()
+            SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, verified=True)
+            return redirect('doctor:patient_documents', patient_name=patient.name)
+    else:
+        form = DocumentForm()
 
     context = {
         'patient': patient,
         'shared_docs': shared_docs,
+        'form': form,
     }
 
     return render(request, 'doctors/patient_documents.html', context)
@@ -134,5 +144,24 @@ def updateform(request):
 
      else:
         form = ProfileUpdateForm()   
+     return render(request, 'doctors/update.html', {'form': form})  
 
-     return render(request, 'doctors/update.html', {'form': form})   
+@login_required
+def Schedule(request,patient_id):
+     user = request.user
+     if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
+     
+     if request.method=="POST":
+       doctor = request.user.doctoruser
+       patient = get_object_or_404(PatientUser, user__username=patient_id)
+       form = ScheduleAppointment(request.POST)
+       if form.is_valid():
+            Appointment.objects.create(patient=patient,doctor=doctor,date=form.cleaned_data['FollowUpDate'])
+            return redirect('doctor:doctor-home')
+     else:
+         form=ScheduleAppointment()
+
+     return render(request,'doctors/appointmentadd.html',{'form':form})      
+
+    

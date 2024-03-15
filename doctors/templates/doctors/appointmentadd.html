@@ -1,0 +1,10 @@
+{% block content %}
+<!-- select_working_days.html -->
+<h2>Please enter the Date in YYYY-MM-DD HH:MM format and ensure that HH:MM is in 24hr format</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

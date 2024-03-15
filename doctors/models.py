@@ -22,6 +22,7 @@ class SharedDocument(models.Model):
     document = models.ForeignKey(Documents, on_delete=models.CASCADE)
     doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
+    verified = models.BooleanField(default=False)
 
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),
@@ -43,5 +44,18 @@ class Profile(models.Model):
     specialization = models.CharField(max_length=100)
     hospital = models.CharField(max_length=100)
     working_days = models.ManyToManyField(Day)
+
+class Appointment(models.Model):
+    patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE,null = True)
+    doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
+    class Meta:
+        ordering = ['-date']  # Display appointments with the latest added appointment first
+
+    def __str__(self):
+        return f'{self.doctor.name} - {self.date.strftime("%d/%m/%Y %H:%M")}'   
+
+    
 
 

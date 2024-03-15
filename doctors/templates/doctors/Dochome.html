@@ -133,12 +133,12 @@
                 <p>Name: {{ patient.name }}</p>
                 <p>Age: {{ patient.age }}</p>
                 <p>Gender: {{ patient.get_gender_display}}</p>
-                <a href="{% url 'doctor:patient_documents' patient.user.username %}"><button>View Patient Documents</button></a>
+                <a href="{% url 'doctor:patient_documents' patient.name %}"><button>View Patient Documents</button></a>
+                <a href="{% url 'doctor:appointmentadd' patient.user.username %}"><button>Add Follow-up Date</button></a>
             </div>
             {% empty %}
             <p>No patients found.</p>
             {% endfor %}
-            <a href="{% url 'doctor:sharedoc' %}"><button type="button">VIEW DOCUMENTS</button></a>
         </section>
     </main>
 </body>
