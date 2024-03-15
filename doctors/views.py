@@ -136,4 +136,3 @@ def updateform(request):
         form = ProfileUpdateForm()   
 
      return render(request, 'doctors/update.html', {'form': form})   
-    
