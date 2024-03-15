@@ -100,6 +100,7 @@
             color: #fff;
             border-radius: 5px;
             font-size: 1rem;
+            cursor: pointer;
         }
 
         .selected-doctors span .remove-doctor {
@@ -183,6 +184,29 @@
             }
         });
 
+        doctorsInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const visibleOptions = Array.from(doctorsSelect.options).filter(option => option.style.display !== 'none');
+                if (visibleOptions.length > 0) {
+                    visibleOptions[0].selected = true;
+                    const selectedDoctor = visibleOptions[0].text;
+                    const doctorSpan = document.createElement('span');
+                    doctorSpan.textContent = selectedDoctor;
+                    const removeIcon = document.createElement('span');
+                    removeIcon.textContent = '\u00D7';
+                    removeIcon.className = 'remove-doctor';
+                    removeIcon.addEventListener('click', function() {
+                        const doctorOption = doctorsSelect.options.namedItem(selectedDoctor);
+                        doctorOption.selected = false;
+                        doctorSpan.remove();
+                    });
+                    doctorSpan.appendChild(removeIcon);
+                    selectedDoctorsContainer.appendChild(doctorSpan);
+                }
+            }
+        });
+
         doctorsSelect.addEventListener('change', function() {
             const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
             selectedDoctorsContainer.innerHTML = '';
@@ -203,6 +227,17 @@
                 doctorSpan.appendChild(removeIcon);
                 selectedDoctorsContainer.appendChild(doctorSpan);
             });
+        });
+
+        selectedDoctorsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-doctor')) {
+                const doctorName = event.target.parentElement.textContent.trim();
+                const doctorOption = doctorsSelect.querySelector(`option[value="${doctorName}"]`);
+                if (doctorOption) {
+                    doctorOption.selected = false;
+                }
+                event.target.parentElement.remove();
+            }
         });
     </script>
 </body>

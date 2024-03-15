@@ -138,28 +138,34 @@
   }
   
   .prescription-card {
+    height: 100px; /* Set a fixed height for all prescription cards */
+    width: 200px;
     position: relative;
     padding: 20px;
     margin: 10px;
     border: 1px solid #ccc;
     text-align: center;
+    overflow: hidden; /* Prevent overflow of content */
   }
   
   .prescription-icon {
-    font-size: 100px;
-    margin-bottom: 10px;
+    font-size: 80px; /* Adjusted font size for the icon */
+    margin-bottom: 5px; /* Adjusted margin for spacing */
     color: red;
   }
   
   .prescription-link {
     display: block;
     color: black;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 16px; /* Adjusted font size for the link */
+    margin-bottom: 5px; /* Adjusted margin for spacing */
+    overflow: hidden; /* Prevent overflow of text */
+    white-space: nowrap; /* Prevent wrapping of text */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflow */
   }
   
   .prescription-type {
-    font-size: 14px;
+    font-size: 12px; /* Adjusted font size for the type */
   }
   
   .delete-btn {
