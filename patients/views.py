@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
+from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Medication, Documents,PatientUser
 from django.views.generic.edit import CreateView
@@ -44,7 +46,17 @@ def redirect_user(request):
         return redirect('home')
 """
 
-
+class DeleteMedication(View):
+    def delete(self, request, medication_id):
+        try:
+            medication = Medication.objects.get(pk=medication_id)
+            medication.delete()
+            return JsonResponse({'message': 'Medication deleted successfully'})
+        except Medication.DoesNotExist:
+            return JsonResponse({'error': 'Medication not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+        
 class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
     fields = ['medical_condition', 'medicines', 'file']
@@ -53,7 +65,15 @@ class UploadMedication(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user.patientuser
-        return super().form_valid(form)
+        Documents.objects.create(
+            author=self.request.user.patientuser,
+            file=form.instance.file,
+            type='prescription'
+        )
+        response = super().form_valid(form)
+        reset_form_script = "<script>resetForm();</script>"
+        response.content += reset_form_script.encode()
+        return response
 
     def get_context_data(self, **kwargs):
         patient = self.request.user.patientuser
@@ -69,6 +89,7 @@ class UploadDocuments(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user.patientuser
+        
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
