@@ -51,7 +51,8 @@
             border-radius: 5px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
-            overflow: hidden;
+            overflow-y: auto; /* Add scrollbar */
+            height: 100px; /* Set a fixed height */
         }
 
         .form-control:focus {
@@ -81,6 +82,7 @@
             transform: translateY(-50%);
             color: #999;
             font-size: 1.2rem;
+            cursor: pointer; /* Add cursor pointer */
         }
 
         .selected-doctors {
@@ -142,7 +144,7 @@
             <label for="doctors">Select Doctors:</label>
             <div class="custom-select">
                 <input type="text" class="form-control" id="doctors" placeholder="Search doctors...">
-                <span class="search-icon"><i class="fas fa-search"></i></span>
+                <span class="search-icon" id="search-icon"><i class="fas fa-search"></i></span>
             </div>
             <select name="doctors" id="doctors-select" class="form-control" multiple>
                 {% for doctor in doctors %}
@@ -170,6 +172,7 @@
         const doctorsInput = document.getElementById('doctors');
         const doctorsSelect = document.getElementById('doctors-select');
         const selectedDoctorsContainer = document.querySelector('.selected-doctors');
+        const searchIcon = document.getElementById('search-icon');
 
         doctorsInput.addEventListener('input', function() {
             const filter = this.value.toLowerCase();
@@ -210,6 +213,10 @@
             }
         });
 
+        searchIcon.addEventListener('click', function() {
+            doctorsInput.focus();
+        });
+
         doctorsSelect.addEventListener('change', function() {
             const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
             selectedDoctorsContainer.innerHTML = '';
@@ -219,4 +226,29 @@
                 doctorSpan.textContent = doctor;
 
                 const removeIcon = document.createElement('span');
-                removeIcon.textContent =
+                removeIcon.textContent = '\u00D7';
+                removeIcon.className = 'remove-doctor';
+                removeIcon.addEventListener('click', function() {
+                    const doctorOption = doctorsSelect.options.namedItem(doctor);
+                    doctorOption.selected = false;
+                    doctorSpan.remove();
+                });
+
+                doctorSpan.appendChild(removeIcon);
+                selectedDoctorsContainer.appendChild(doctorSpan);
+            });
+        });
+
+        selectedDoctorsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-doctor')) {
+                const doctorName = event.target.parentElement.textContent.trim();
+                const doctorOption = doctorsSelect.querySelector(`option[value="${doctorName}"]`);
+                if (doctorOption) {
+                    doctorOption.selected = false;
+                }
+                event.target.parentElement.remove();
+            }
+        });
+    </script>
+</body>
+</html>
