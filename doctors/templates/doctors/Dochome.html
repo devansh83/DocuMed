@@ -157,7 +157,9 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-brand">DocuMED</div>
+        <div class="navbar-brand">
+            <a href="{% url 'doctor:doctor-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
+        </div>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search for patients" onkeyup="searchPatients()">
             <button><i class="fa fa-search"></i>Search</button>
