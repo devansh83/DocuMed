@@ -173,82 +173,94 @@
         const doctorsSelect = document.getElementById('doctors-select');
         const selectedDoctorsContainer = document.querySelector('.selected-doctors');
         const searchIcon = document.getElementById('search-icon');
-
+      
         doctorsInput.addEventListener('input', function() {
-            const filter = this.value.toLowerCase();
-            const options = doctorsSelect.options;
-
-            for (let i = 0; i < options.length; i++) {
-                const option = options[i];
-                const doctorName = option.text.toLowerCase();
-
-                if (doctorName.includes(filter)) {
-                    option.style.display = 'block';
-                } else {
-                    option.style.display = 'none';
-                }
+          const filter = this.value.toLowerCase();
+          const options = doctorsSelect.options;
+      
+          // Show the dropdown when the input field is focused
+          doctorsSelect.style.display = 'block';
+      
+          for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const doctorName = option.text.toLowerCase();
+      
+            if (doctorName.includes(filter)) {
+              option.style.display = 'block';
+            } else {
+              option.style.display = 'none';
             }
+          }
         });
-
+      
         doctorsInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const visibleOptions = Array.from(doctorsSelect.options).filter(option => option.style.display !== 'none');
-                if (visibleOptions.length > 0) {
-                    visibleOptions[0].selected = true;
-                    const selectedDoctor = visibleOptions[0].text;
-                    const doctorSpan = document.createElement('span');
-                    doctorSpan.textContent = selectedDoctor;
-                    const removeIcon = document.createElement('span');
-                    removeIcon.textContent = '\u00D7';
-                    removeIcon.className = 'remove-doctor';
-                    removeIcon.addEventListener('click', function() {
-                        const doctorOption = doctorsSelect.options.namedItem(selectedDoctor);
-                        doctorOption.selected = false;
-                        doctorSpan.remove();
-                    });
-                    doctorSpan.appendChild(removeIcon);
-                    selectedDoctorsContainer.appendChild(doctorSpan);
-                }
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            const visibleOptions = Array.from(doctorsSelect.options).filter(option => option.style.display !== 'none');
+            if (visibleOptions.length > 0) {
+              visibleOptions[0].selected = true;
+              const selectedDoctor = visibleOptions[0].text;
+              const doctorSpan = document.createElement('span');
+              doctorSpan.textContent = selectedDoctor;
+              const removeIcon = document.createElement('span');
+              removeIcon.textContent = 'X';
+              removeIcon.className = 'remove-doctor';
+              removeIcon.addEventListener('click', function() {
+                const doctorOption = doctorsSelect.options.namedItem(selectedDoctor);
+                doctorOption.selected = false;
+                doctorSpan.remove();
+              });
+              doctorSpan.appendChild(removeIcon);
+              selectedDoctorsContainer.appendChild(doctorSpan);
             }
+          }
         });
-
+      
         searchIcon.addEventListener('click', function() {
-            doctorsInput.focus();
+          doctorsInput.focus();
         });
-
+      
         doctorsSelect.addEventListener('change', function() {
-            const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
-            selectedDoctorsContainer.innerHTML = '';
-
-            selectedDoctors.forEach(doctor => {
-                const doctorSpan = document.createElement('span');
-                doctorSpan.textContent = doctor;
-
-                const removeIcon = document.createElement('span');
-                removeIcon.textContent = '\u00D7';
-                removeIcon.className = 'remove-doctor';
-                removeIcon.addEventListener('click', function() {
-                    const doctorOption = doctorsSelect.options.namedItem(doctor);
-                    doctorOption.selected = false;
-                    doctorSpan.remove();
-                });
-
-                doctorSpan.appendChild(removeIcon);
-                selectedDoctorsContainer.appendChild(doctorSpan);
+          const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
+          selectedDoctorsContainer.innerHTML = '';
+          selectedDoctors.forEach(doctor => {
+            const doctorSpan = document.createElement('span');
+            doctorSpan.textContent = doctor;
+            const removeIcon = document.createElement('span');
+            removeIcon.textContent = 'X';
+            removeIcon.className = 'remove-doctor';
+            removeIcon.addEventListener('click', function() {
+              const doctorOption = doctorsSelect.options.namedItem(doctor);
+              doctorOption.selected = false;
+              doctorSpan.remove();
             });
+            doctorSpan.appendChild(removeIcon);
+            selectedDoctorsContainer.appendChild(doctorSpan);
+          });
+      
+          // Hide the dropdown after selecting a doctor
+          doctorsSelect.style.display = 'none';
         });
-
+      
         selectedDoctorsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('remove-doctor')) {
-                const doctorName = event.target.parentElement.textContent.trim();
-                const doctorOption = doctorsSelect.querySelector(`option[value="${doctorName}"]`);
-                if (doctorOption) {
-                    doctorOption.selected = false;
-                }
-                event.target.parentElement.remove();
+          if (event.target.classList.contains('remove-doctor')) {
+            const doctorName = event.target.parentElement.textContent.trim();
+            const doctorOption = doctorsSelect.querySelector(`option[value="${doctorName}"]`);
+            if (doctorOption) {
+              doctorOption.selected = false;
             }
+            event.target.parentElement.remove();
+          }
         });
-    </script>
+      
+        // Hide the dropdown when clicking outside the doctors input
+        document.addEventListener('click', function(event) {
+          const isClickInside = doctorsInput.contains(event.target);
+      
+          if (!isClickInside) {
+            doctorsSelect.style.display = 'none';
+          }
+        });
+      </script>
 </body>
 </html>
