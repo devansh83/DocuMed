@@ -99,7 +99,9 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-brand">DocuMED</div>
+        <div class="navbar-brand">
+            <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
+        </div>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button class="end-btn" type="submit">Logout</button>
