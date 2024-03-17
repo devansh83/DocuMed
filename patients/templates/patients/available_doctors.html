@@ -13,18 +13,18 @@
             font-weight: bold;
             font-size: 25px;
             background-color: #f8f8f8;
-          }
-          .navbar {
+        }
+        .navbar {
             background-color: #0bb7e1;
             padding: 30px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-          }
-          .navbar-brand {
+        }
+        .navbar-brand {
             margin: 0;
-          }
-          .end-btn {
+        }
+        .end-btn {
             background-color: #daa521;
             border: none;
             width: 120px;
@@ -38,15 +38,15 @@
             align-items: center;
             justify-content: center;
             transition: background-color 0.3s;
-          }
-          .end-btn::after {
+        }
+        .end-btn::after {
             content: "\2192"; /* Unicode for right arrow */
             margin-left: 5px;
-          }
-          .end-btn:hover {
+        }
+        .end-btn:hover {
             background-color: #c6951b;
-          }
-          
+        }
+
         .search-container {
             display: flex;
             align-items: center;
@@ -79,7 +79,7 @@
         #searchButton:hover {
             background-color: #0b5a7e;
         }
-        
+
         h1 {
             text-align: center;
             margin-top: 30px;
@@ -91,7 +91,7 @@
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 20px; /* Adjust the gap between cards */
             justify-content: center;
             align-items: center;
             margin-top: 30px;
@@ -126,6 +126,12 @@
 
         p:last-child {
             margin-bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+            .card-container {
+                grid-template-columns: repeat(2, minmax(300px, 1fr)); /* Ensure only two profiles in one row on larger screens */
+            }
         }
     </style>
 </head>
