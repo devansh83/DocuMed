@@ -5,27 +5,46 @@
     <title>Medical Certificates</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: 25px;
-            background-color: #f8f8f8;
-        }
-        .navbar {
-            background-color: #0bb7e1;
-            padding: 30px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar-left {
-            float: left;
-        }
-        .documed-logo {
-            font-size: 30px;
-            font-weight: bold;
-        }
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+        background-color: #f8f8f8;
+      }
+      .navbar {
+        background-color: #0bb7e1;
+        padding: 30px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navbar-brand {
+        margin: 0;
+      }
+      .end-btn {
+        background-color: #daa521;
+        border: none;
+        width: 120px;
+        height: 40px;
+        font-size: 18px;
+        color: #ffffff;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+      }
+      .end-btn::after {
+        content: "\2192"; /* Unicode for right arrow */
+        margin-left: 5px;
+      }
+      .end-btn:hover {
+        background-color: #c6951b;
+      }
+
         .container {
             padding: 40px;
             margin: 40px;
@@ -81,9 +100,11 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <span class="documed-logo">DocuMed</span>
-        </div>
+        <div class="navbar-brand">DocuMED</div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="end-btn" type="submit">Logout</button>
+        </form>
     </nav>
 
     <div class="container">
