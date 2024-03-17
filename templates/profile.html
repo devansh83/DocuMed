@@ -1,9 +1,179 @@
-{% block content %}
-<h1> {{ profile.doctor_user.name }}</h1>
-<h1> {{ profile.specialization }}</h1>
-<h1> {{ profile.hospital }}</h1>
-{% for day in profile.working_days.all %}
-    {{ day.name }},
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuMED Doctor Profile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+          
+        .navbar {
+            background-color: #0bb7e1;
+            padding: 30px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 25px;
+        }
+          
+        .navbar-brand {
+            margin: 0;
+        }
 
-{% endblock %}
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input[type=text] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196f3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button i {
+            margin-right: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #0b5a7e;
+        }
+
+        .end-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .end-buttons button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #daa521;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .end-buttons button:last-child {
+            margin-right: 10px;
+        }
+
+        .end-buttons button:hover {
+            background-color: #c6951b;
+        }
+
+        .main-content {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            /* {% comment %} align-items: center; {% endcomment %} */
+            min-height: calc(100vh - 100px); /* Adjusted height to accommodate the navbar */
+        }
+
+        .section {
+            width: 100%;
+            max-width: 800px; /* Limiting the width of the patient cards */
+        }
+
+        .card {
+            background-color: #cac7c7b3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .card p {
+            margin: 5px 0;
+        }
+
+        .card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .view-documents {
+            background-color: #4CAF50;
+        }
+
+        .add-follow-up {
+            background-color: #2196f3;
+        }
+
+        .delete-patient {
+            background-color: #f44336;
+        }
+
+        .card button:hover {
+            background-color: #333;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px; /* Reduced margin */
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DocuMED</div>
+    </nav>
+    <h1>{{profile.doctor_user.name}}'s Profile</h1>
+    <main class="main-content">
+        <section class="section patients">
+            <div class="card patient-card">
+                <h3>Name: {{ profile.doctor_user.name }}</h3>
+                <h3>Specialization: {{ profile.specialization }}</h3>
+                <h3>Hospital: {{ profile.hospital }}</h3>
+                <h3>Working Days:
+                    {% for day in profile.working_days.all %}
+                        {{ day.name }}
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </h3>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
