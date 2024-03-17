@@ -107,6 +107,36 @@
             border: 1px solid #aaa;
             text-align: center; /* Center input text */
         }
+
+        input[type="file"] {
+            width: 60%;
+            height: 40px; /* Increased height for better visibility */
+            margin-bottom: 8px;
+            padding: 5px; /* Adjusted padding for better appearance */
+            border-radius: 5px;
+            background-color: #f8f8f8; /* Added background color */
+            color: #333; /* Added text color */
+            outline: none; /* Removed outline on focus */
+            transition: border-color 0.3s ease; /* Added transition effect */
+        }
+
+        input[type="file"]:hover {
+            border-color: #0bb7e1; /* Adjusted border color on hover */
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            cursor: pointer; /* Added pointer cursor */
+            background-color: #0bb7e1; /* Changed button background color */
+            color: #fff; /* Changed button text color */
+            padding: 10px 20px; /* Adjusted button padding */
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #08a1d8; /* Adjusted button background color on hover */
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
