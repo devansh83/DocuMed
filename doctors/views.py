@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Prescription,DoctorUser,SharedDocument,Profile,Appointment
+from .models import Prescription,DoctorUser,SharedDocument,Profile,Appointment,Day
 from patients.models import PatientUser
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
@@ -40,7 +40,10 @@ def RegisterDoc(request):
          form = DoctorRegisterForm(request.POST,request.FILES)
          if form.is_valid():
              user_instance = form.save()
+             selected_days=Day.objects.all()
              doctor_user = DoctorUser.objects.create(user=user_instance,license=form.cleaned_data['license'],phone_number = form.cleaned_data['phone_number'],name = form.cleaned_data['name'])
+             profile = Profile.objects.create(doctor_user=doctor_user,specialization="none",hospital="none")
+             profile.working_days.set(selected_days)
              #messages.success(request,f'Account created for {username}')
              return redirect('home')
     else:
@@ -128,24 +131,22 @@ def patient_documents(request, patient_name):
 
 @login_required
 def updateform(request):
-     user = request.user
-     if not DoctorUser.objects.filter(user=user).exists():
+    user = request.user
+    if not DoctorUser.objects.filter(user=user).exists():
         return redirect('login')
-     if request.method=="POST":
-         form = ProfileUpdateForm(request.POST)
-         if form.is_valid():
-             doctor = request.user.doctoruser
-             profile=Profile.objects.get(doctor_user=doctor)
-             profile.specialization=form.cleaned_data['specialization']
-             profile.hospital=form.cleaned_data['hospital']
-             selected_days=form.cleaned_data['working_days']
-             profile.working_days.set(selected_days)
-             return redirect('doctor:doctor-home')
 
-     else:
-        form = ProfileUpdateForm()   
-     return render(request, 'doctors/update.html', {'form': form})  
+    doctor = DoctorUser.objects.get(user=user)
+    profile = Profile.objects.get(doctor_user=doctor)
 
+    if request.method == "POST":
+        form = ProfileUpdateForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor:doctor-home')
+    else:
+        form = ProfileUpdateForm(instance=profile)
+
+    return render(request, 'doctors/update.html',{'form':form})
 @login_required
 def Schedule(request,patient_id):
      user = request.user
@@ -162,6 +163,21 @@ def Schedule(request,patient_id):
      else:
          form=ScheduleAppointment()
 
-     return render(request,'doctors/appointmentadd.html',{'form':form})      
+     return render(request,'doctors/appointmentadd.html',{'form':form})  
 
-    
+from django.http import JsonResponse
+
+# @login_required
+# def delete_shared_documents(request):
+#     if request.method == 'POST' and request.is_ajax():
+#         try:
+#             patient_name = request.POST.get('patient_name')
+
+#             # Delete shared documents associated with the patient's name
+#             SharedDocument.objects.filter(patient__name=patient_name).delete()
+
+#             return JsonResponse({'message': 'Shared documents deleted successfully'}, status=200)
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=500)
+#     else:
+#         return JsonResponse({'error': 'Invalid request'}, status=400)
