@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from doctors.models import DoctorUser, SharedDocument,Appointment
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from doctors.models import Profile,DoctorUser
 @login_required
 def home(request):
      user = request.user
@@ -174,6 +174,17 @@ def view_prescription(request):
     prescriptions = Documents.objects.filter(author=patient, type='prescription')
     context = {'prescriptions': prescriptions}
     return render(request, 'patients/view_prescription.html', context)
+
+@login_required
+def view_doctors(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
+    
+    doctor_profiles = Profile.objects.all()
+    
+    # Pass the doctor profiles to the template for rendering
+    return render(request, 'patients/available_doctors.html', {'doctor_profiles': doctor_profiles})
 
 @login_required
 def view_scans(request):

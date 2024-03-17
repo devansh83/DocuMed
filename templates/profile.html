@@ -25,45 +25,12 @@
         .navbar-brand {
             margin: 0;
         }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-container input[type=text] {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-right: 10px;
-            outline: none;
-        }
-
-        .search-container button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #2196f3;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-container button i {
-            margin-right: 5px;
-        }
-
-        .search-container button:hover {
-            background-color: #0b5a7e;
-        }
-
+  
         .end-buttons {
             display: flex;
             align-items: center;
         }
-
+  
         .end-buttons button {
             margin-left: 10px;
             padding: 10px 20px;
@@ -76,14 +43,22 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
+  
         .end-buttons button:last-child {
             margin-right: 10px;
         }
-
+  
         .end-buttons button:hover {
             background-color: #c6951b;
         }
+          
+          
+  
+  
+  
+        
+
+        
 
         .main-content {
             padding: 10px;
@@ -157,7 +132,17 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="navbar-brand">DocuMED</div>
+        <div class="navbar-brand">
+            <a href="{% url 'doctor:doctor-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
+        </div>
+        <div class="patient-reg">View Profile</div>
+        <div class="end-buttons">
+            
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit1">Logout</button>
+            </form>
+        </div>
     </nav>
     <h1>{{profile.doctor_user.name}}'s Profile</h1>
     <main class="main-content">
