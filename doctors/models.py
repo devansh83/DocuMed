@@ -54,7 +54,7 @@ class Appointment(models.Model):
         ordering = ['-date']  # Display appointments with the latest added appointment first
 
     def __str__(self):
-        return f'{self.doctor.name} - {self.date.strftime("%d/%m/%Y %H:%M")}'   
+        return f'{self.date.strftime("%d/%m/%Y %H:%M")}'   
 
     
 

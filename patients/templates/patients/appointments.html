@@ -1,9 +1,180 @@
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuMED Patient Appointments</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+          
+        .navbar {
+            background-color: #0bb7e1;
+            padding: 30px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 25px;
+        }
+          
+        .navbar-brand {
+            margin: 0;
+        }
 
-{% for appointment in appointments %}
-<li>
-    {{ appointment }}
-</li>
-{% endfor %}
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
 
-{% endblock %}
+        .search-container input[type=text] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196f3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button i {
+            margin-right: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #0b5a7e;
+        }
+
+        .end-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .end-buttons button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #daa521;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .end-buttons button:last-child {
+            margin-right: 10px;
+        }
+
+        .end-buttons button:hover {
+            background-color: #c6951b;
+        }
+
+        .main-content {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            /* {% comment %} align-items: center; {% endcomment %} */
+            min-height: calc(100vh - 100px); /* Adjusted height to accommodate the navbar */
+        }
+
+        .section {
+            width: 100%;
+            max-width: 800px; /* Limiting the width of the patient cards */
+        }
+
+        .card {
+            background-color: #c2bebebe;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .card p {
+            margin: 5px 0;
+        }
+
+        .card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .view-documents {
+            background-color: #4CAF50;
+        }
+
+        .add-follow-up {
+            background-color: #2196f3;
+        }
+
+        .delete-patient {
+            background-color: #f44336;
+        }
+
+        .card button:hover {
+            background-color: #333;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px; /* Reduced margin */
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DocuMED</div>
+    </nav>
+    <h1>Your Appointments</h1>
+    <main class="main-content">
+        <section class="section patients">
+            <!-- Patient cards -->
+            {% for appointment in appointments %}
+            <div class="card patient-card">
+                <h3>Doctor: {{ appointment.doctor.name }}</h3>
+                <h3>Date & Time: {{appointment}}</h3>
+               
+            </div>
+            {% empty %}
+            <h2>No Scheduled Appointments</h2>
+            {% endfor %}
+        </section>
+    </main>
+
+    
+</body>
+</html>
