@@ -115,9 +115,17 @@
     </nav>
     <div class="container">
         <div class="row">
+          <div class="section">
+            <div class="section-content">
+                <h3>Available Doctors</h3>
+                <img class="icon" src="{% static 'doctors_available.jpg' %}" alt="Doctors Available Photo" /><br />
+            </div>
+            <a class="access-btn" href="{% url 'patient:available_doctors' %}">Access</a>
+        </div>
             <div class="section">
                 <div class="section-content">
                     <h3>Treatments</h3>
+                    <br>
                     <br>
                     <img class="icon" src="{% static 'Treatments.png' %}" alt="Treatments Photo" /><br />
                 </div>

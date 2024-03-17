@@ -24,12 +24,12 @@
         .navbar-brand {
             margin: 0;
         }
-
+  
         .end-buttons {
             display: flex;
             align-items: center;
         }
-
+  
         .end-buttons button {
             margin-left: 10px;
             padding: 10px 20px;
@@ -42,14 +42,15 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
+  
         .end-buttons button:last-child {
             margin-right: 10px;
         }
-
+  
         .end-buttons button:hover {
             background-color: #c6951b;
         }
+          
         .container {
             padding: 40px;
             border: 1px solid #ccc;
@@ -166,7 +167,7 @@
         <div class="navbar-brand">
             <a href="{% url 'doctor:doctor-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
         </div>
-        
+        <div class="patient-reg">Update Doctor Profile</div>
         <div class="end-buttons">
             
             <form action="{% url 'logout' %}" method="post">
