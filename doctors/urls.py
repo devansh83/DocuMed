@@ -15,5 +15,7 @@ urlpatterns = [
     path('update/',doctor_views.updateform,name='update'),
     path('<str:patient_id>/appointmentadd/',doctor_views.Schedule,name='appointmentadd'),
     # path('shared-documents/', views.shared_documents, name='shared_documents'),
-    path('<str:patient_name>/documents/', views.patient_documents, name='patient_documents'),  
+    # path('delete_shared_documents/', doctor_views.delete_shared_documents, name='delete_shared_documents'),
+    path('<str:patient_name>/documents/', doctor_views.patient_documents, name='patient_documents'),  
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

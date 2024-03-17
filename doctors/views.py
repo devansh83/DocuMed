@@ -162,6 +162,21 @@ def Schedule(request,patient_id):
      else:
          form=ScheduleAppointment()
 
-     return render(request,'doctors/appointmentadd.html',{'form':form})      
+     return render(request,'doctors/appointmentadd.html',{'form':form})  
 
-    
+from django.http import JsonResponse
+
+# @login_required
+# def delete_shared_documents(request):
+#     if request.method == 'POST' and request.is_ajax():
+#         try:
+#             patient_name = request.POST.get('patient_name')
+
+#             # Delete shared documents associated with the patient's name
+#             SharedDocument.objects.filter(patient__name=patient_name).delete()
+
+#             return JsonResponse({'message': 'Shared documents deleted successfully'}, status=200)
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=500)
+#     else:
+#         return JsonResponse({'error': 'Invalid request'}, status=400)
