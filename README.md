@@ -16,11 +16,37 @@ Group "Ctrl C + Ctrl V"'s Repository for CS253 Course Project, IIT Kanpur.
 
 + [`manage.py`](/manage.py) is the file which is responsible for managing and running the entire project. It contains code for execution of the project through the command line interface and running it on the Django admin server.
 
++ Instructions for running the software application through the command line interface on a local server:
+  
 
+1) Firstly, type the following to get the required functionalities installed on your system:
 
+pip install django
 
+Optional: To check whether Django has been installed successfully or not, type "django-admin --version" without the quotes on the command line interface. This will give you the version of Django installed on your system.
 
+2) After this, run the following commands step-by-step to get the additional functionalities required:
 
+pip install crispy-bootstrap4
+pip install django-crispy-forms
 
+3) Next, ensure that you are in the desired directory (preferably empty) of your system on the terminal.
+
+4) Once you have done this, run the following commands on the terminal:
+
+git clone https://github.com/devansh83/DocuMed.git
+
+5) This will clone the repository and download its contents into the required folder.
+
+6) Finally, to get the server up and running, navigate to the DocuMed directory (which stores the entire code, including the 6 directories) inside the folder, and enter the following on your terminal:
+
+python manage.py runserver
+
+7) Now you may go to your browser and type "http://localhost:8000/" without the quotes to view the website.
+
+8) Throughout the usage of the website, ensure that the server is running on the terminal, if it closes in between, or you need to close it for some time, re-open it the next time using the command in step 6 above and after that you may view the website in the browser.
+
++ Instructions to operate the website deployed on the web:
+Click on the following link to use the website deployed on the web: devanshag.pythonanywhere.com 
 
 
