@@ -47,6 +47,7 @@ python manage.py runserver
 8) Throughout the usage of the website, ensure that the server is running on the terminal, if it closes in between, or you need to close it for some time, re-open it the next time using the command in step 6 above and after that you may view the website in the browser.
 
 + Instructions to operate the website deployed on the web:
+  
 Click on the following link to use the website deployed on the web: devanshag.pythonanywhere.com 
 
 
