@@ -185,15 +185,8 @@
             <div class="card patient-card" data-name="{{ patient.name }}">
                 <p>Name: {{ patient.name }}</p>
                 <p>Age: {{ patient.age }}</p>
-                {% if patient.gender == "('male', 'Male')" %}
-                <p>Gender: Male</p>
-                {% endif %}
-                {% if patient.gender == "('female', 'Female')" %}
-                <p>Gender: Female</p>
-                {% endif %}
-                {% if patient.gender == "('other', 'Other')" %}
-                <p>Gender: Other</p>
-                {% endif %}
+                <p>Gender: {{patient.gender}}</p>
+                
 
                 <!-- View Patient Documents button -->
                 <a href="{% url 'doctor:patient_documents' patient.name %}"><button class="view-documents">View Patient Documents</button></a>
