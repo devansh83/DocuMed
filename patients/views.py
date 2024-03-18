@@ -225,3 +225,12 @@ def view_appointments(request):
     appointments = Appointment.objects.filter(patient=patient)
     context = {'appointments' : appointments}
     return render(request,'patients/appointments.html',context)
+
+@login_required
+def view_profile(request):
+    user = request.user
+    if not PatientUser.objects.filter(user=user).exists():
+        return redirect('login')
+    patient = request.user.patientuser
+    context = {'patient' : patient}
+    return render(request,'patients/patprofile.html',context)
