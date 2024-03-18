@@ -12,6 +12,7 @@ urlpatterns = [
     path('medication/', patient_views.UploadMedication.as_view(), name='medupload'),
     path('documents/', patient_views.UploadDocuments.as_view(), name='docupload'),
     path('share/', views.share_documents, name='sharedoc'),
+    path('profile/',patient_views.view_profile,name = 'patprofile'),
     path('register/',patient_views.RegisterPatient,name = 'RegisterPatient'),
     path('prescription/', views.view_prescription, name='view_prescription'),
     path('scans/', views.view_scans, name='view_scans'),

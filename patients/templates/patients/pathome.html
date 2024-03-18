@@ -25,29 +25,31 @@
       .navbar-brand {
         margin: 0;
       }
-      .end-btn {
-        background-color: #daa521;
-        border: none;
-        width: 120px;
-        height: 40px;
-        font-size: 18px;
-        color: #ffffff;
-        border-radius: 20px;
-        font-weight: bold;
-        cursor: pointer;
+      .end-buttons {
         display: flex;
         align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s;
-      }
-      .end-btn::after {
-        content: "\2192"; /* Unicode for right arrow */
-        margin-left: 5px;
-      }
-      .end-btn:hover {
-        background-color: #c6951b;
-      }
+    }
 
+    .end-buttons button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #daa521;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .end-buttons button:last-child {
+        margin-right: 10px;
+    }
+
+    .end-buttons button:hover {
+        background-color: #c6951b;
+    }
       .container {
         display: flex;
         flex-direction: column;
@@ -108,10 +110,15 @@
       <div class="navbar-brand">
         <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
     </div>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button class="end-btn" type="submit">Logout</button>
-        </form>
+    <div class= "end-buttons">
+    <form action="{% url 'patient:patprofile' %}" method="get">
+      <button type="submit">View Profile</button>
+  </form>
+  <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+  </form>
+</div>
     </nav>
     <div class="container">
         <div class="row">
