@@ -95,7 +95,7 @@ class DeleteCertificates(View):
             lab.delete()
             return JsonResponse({'message': 'Medical Certificates deleted successfully'})
         except Documents.DoesNotExist:
-            return JsonResponse({'error': 'Medical Certifcates not found'}, status=404)
+            return JsonResponse({'error': 'Medical Certificates not found'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 class UploadMedication(LoginRequiredMixin, CreateView):
