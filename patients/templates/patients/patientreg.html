@@ -169,10 +169,13 @@ a:hover {
 </head>
 {% load crispy_forms_tags %}
 <body>
-    <div class="navbar">
-        <div class="navbar-brand">DocuMED</div>
-        <div class="patient-reg">Patient Registration</div>
+    
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
     </div>
+    <div class="patient-reg">Patient Registration</div>
+    </nav>
     <div class="content-section">
         <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}

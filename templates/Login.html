@@ -52,20 +52,20 @@
 
 /* Navbar Styling */
 .navbar {
-    width: 96%;
-    background-color:  #0bb7e1;
-    padding: 19px 2%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 96%;
+  background-color: #0bb7e1;
+  padding: 19px 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    margin: 0;
-    font-size: 25px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
+  margin: 0;
+  font-size: 25px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
 }
 
 .name {
@@ -161,10 +161,14 @@ a:hover {
 </head>
 {% load crispy_forms_tags %}
 <body>
-    <div class="navbar">
-        <div class="navbar-brand">DocuMED</div>
-        <div class="patient-reg">Login</div>
+    
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
     </div>
+    <div class="patient-reg">Login</div>
+    
+    </nav>
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
