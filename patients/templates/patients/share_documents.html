@@ -6,152 +6,146 @@
     <title>Share Documents</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f8f8f8;
-    }
-    .navbar {
-        background-color: #0bb7e1;
-        padding: 30px 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: bold;
-        font-size: 25px;
-    }
-    .navbar-brand {
-        margin: 0;
-    }
-    .end-btn {
-        background-color: #daa521;
-        border: none;
-        width: 120px;
-        height: 40px;
-        font-size: 18px;
-        color: #ffffff;
-        border-radius: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s;
-    }
-    .end-btn::after {
-        content: "\2192"; /* Unicode for right arrow */
-        margin-left: 5px;
-    }
-    .end-btn:hover {
-        background-color: #c6951b;
-    }
-    form {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
-        width: 100%;
-        margin: 0 auto; /* Center the form */
-    }
-    h2 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .form-group label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 5px;
-        color: #555;
-    }
-    .form-control {
-        width: 100%;
-        padding: 12px 18px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1rem;
-        transition: border-color 0.3s ease;
-        overflow-y: scroll; /* Add scrollbar */
-        height: 100px; /* Set a fixed height */
-    }
-    .form-control:focus {
-        outline: none;
-        border-color: #2196f3;
-    }
-    .custom-select {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-    .custom-select input {
-        padding-right: 60px;
-        font-size: 1rem;
-        height: 48px;
-        width: 300px;
-        box-sizing: border-box;
-        flex: 1;
-    }
-    .custom-select .search-icon {
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        color: #999;
-        font-size: 1.2rem;
-        cursor: pointer; /* Add cursor pointer */
-    }
-    .selected-doctors {
-        margin-top: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f8f8f8;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    .selected-doctors span {
-        display: inline-block;
-        padding: 8px 15px;
-        background-color: #2196f3;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-    .selected-doctors span .remove-doctor {
-        color: #fff;
-        cursor: pointer;
-        margin-left: 8px;
-        font-size: 1.2rem;
-    }
-    .selected-doctors span .remove-doctor:hover {
-        color: #f8f8f8;
-    }
-    button[type="submit"] {
-        background-color: #2196f3;
-        color: #fff;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1rem;
-        display: block;
-        margin: 0 auto;
-        transition: background-color 0.3s ease;
-    }
-    button[type="submit"]:hover {
-        background-color: #6c3483;
-    }
-    .custom-select select {
-        height: 200px; /* Set a fixed height */
-        overflow-y: auto; /* Add scrollbar */
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+        .navbar {
+            background-color: #0bb7e1;
+            padding: 30px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 25px;
+        }
+        .navbar-brand {
+            margin: 0;
+        }
+        .end-btn {
+            background-color: #daa521;
+            border: none;
+            width: 120px;
+            height: 40px;
+            font-size: 18px;
+            color: #ffffff;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .end-btn::after {
+            content: "\2192"; /* Unicode for right arrow */
+            margin-left: 5px;
+        }
+        .end-btn:hover {
+            background-color: #c6951b;
+        }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto; /* Center the form */
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            position: relative;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .custom-select input[type="text"] {
+            width: calc(100% - 30px);
+        }
+        .custom-select .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+            cursor: pointer; /* Add cursor pointer */
+        }
+        .selected-doctors {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .selected-doctors span {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2196f3;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .selected-doctors span .remove-doctor {
+            color: #fff;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+        .selected-doctors span .remove-doctor:hover {
+            color: #f8f8f8;
+        }
+        button[type="submit"] {
+            background-color: #2196f3;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #6c3483;
+        }
+        .custom-select select {
+            height: 200px; /* Set a fixed height */
+            overflow-y: auto; /* Add scrollbar */
+        }
     </style>
 </head>
 <body>
@@ -172,7 +166,7 @@
             <input type="text" class="form-control" id="doctors" placeholder="Search doctors...">
             <span class="search-icon" id="search-icon"><i class="fas fa-search"></i></span>
         </div>
-        <select name="doctors" id="doctors-select" class="form-control" multiple>
+        <select name="doctors" id="doctors-select" class="form-control" multiple style="display: none;">
             {% for doctor in doctors %}
                 <option value="{{ doctor.id }}">{{ doctor.name }}</option>
             {% endfor %}
@@ -200,12 +194,13 @@
     const selectedDoctorsContainer = document.querySelector('.selected-doctors');
     const searchIcon = document.getElementById('search-icon');
 
+    doctorsInput.addEventListener('focus', function() {
+        doctorsSelect.style.display = 'block';
+    });
+
     doctorsInput.addEventListener('input', function() {
         const filter = this.value.toLowerCase();
         const options = doctorsSelect.options;
-
-        // Show the dropdown when the input field is focused
-        doctorsSelect.style.display = 'block';
 
         for (let i = 0; i < options.length; i++) {
             const option = options[i];
@@ -219,38 +214,10 @@
         }
     });
 
-    doctorsInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const visibleOptions = Array.from(doctorsSelect.options).filter(option => option.style.display !== 'none');
-            if (visibleOptions.length > 0) {
-                visibleOptions[0].selected = true;
-                const selectedDoctor = visibleOptions[0].text;
-                const doctorSpan = document.createElement('span');
-                doctorSpan.textContent = selectedDoctor;
-                const removeIcon = document.createElement('span');
-                removeIcon.textContent = 'X';
-                removeIcon.className = 'remove-doctor';
-                removeIcon.addEventListener('click', function() {
-                    const doctorOption = doctorsSelect.options.namedItem(selectedDoctor);
-                    doctorOption.selected = false;
-                    doctorSpan.remove();
-                });
-                doctorSpan.appendChild(removeIcon);
-                selectedDoctorsContainer.appendChild(doctorSpan);
-            }
-        }
-    });
-
-    searchIcon.addEventListener('click', function() {
-        doctorsInput.focus();
-    });
-
     doctorsSelect.addEventListener('change', function() {
         const selectedDoctors = Array.from(this.selectedOptions).map(option => option.text);
-        const selectedDocuments = Array.from(document.querySelectorAll('input[name="documents"]:checked')).map(checkbox => checkbox.value);
 
-        selectedDoctorsContainer.innerHTML = '';
+        selectedDoctorsContainer.innerHTML= '';
 
         selectedDoctors.forEach(doctor => {
             const doctorSpan = document.createElement('span');
@@ -259,20 +226,14 @@
             removeIcon.textContent = 'X';
             removeIcon.className = 'remove-doctor';
             removeIcon.addEventListener('click', function() {
-                const doctorOption = doctorsSelect.options.namedItem(doctor);
-                doctorOption.selected = false;
+                const doctorOption = doctorsSelect.querySelector(`option[value="${doctor}"]`);
+                if (doctorOption) {
+                    doctorOption.selected = false;
+                }
                 doctorSpan.remove();
             });
             doctorSpan.appendChild(removeIcon);
             selectedDoctorsContainer.appendChild(doctorSpan);
-        });
-
-        // Append selected documents
-        selectedDocuments.forEach(documentId => {
-            const selectedDocument = document.querySelector(`input[name="documents"][value="${documentId}"]`).nextSibling.nodeValue.trim();
-            const documentSpan = document.createElement('span');
-            documentSpan.textContent = selectedDocument;
-            selectedDoctorsContainer.appendChild(documentSpan);
         });
 
         // Hide the dropdown after selecting doctors
@@ -298,6 +259,27 @@
             doctorsSelect.style.display = 'none';
         }
     });
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const selectedDoctorsCount = selectedDoctorsContainer.children.length;
+        const selectedDocumentsCount = document.querySelectorAll('input[name="documents"]:checked').length;
+
+        if (selectedDocumentsCount > 0 && selectedDoctorsCount === 0) {
+            event.preventDefault(); // Prevent form submission
+
+            // Display popup alert
+            window.alert('Please select at least one doctor to share the selected documents ');
+            window.location.reload();
+        }
+        else if(selectedDoctorsCount===0){
+            event.preventDefault();
+            window.alert("No doctor has been selected");
+            window.location.reload();
+
+        }
+    });
+
 </script>
 </body>
 </html>
+

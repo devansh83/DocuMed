@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from doctors.models import DoctorUser, SharedDocument,Appointment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from doctors.models import Profile,DoctorUser
+from django.contrib import messages
 @login_required
 def home(request):
      user = request.user
@@ -146,7 +147,7 @@ def share_documents(request):
         return redirect('login')
     patient = request.user.patientuser
     documents = Documents.objects.filter(author=patient)
-    doctors = DoctorUser.objects.all()
+    doctors = DoctorUser.objects.filter(profile__isnull=False)
 
     if request.method == 'POST':
         selected_doctors = request.POST.getlist('doctors')
@@ -157,6 +158,9 @@ def share_documents(request):
             for document_id in selected_documents:
                 document = Documents.objects.get(id=document_id, author=patient)
                 SharedDocument.objects.create(document=document, doctor=doctor, patient=patient)
+
+        # Add success message
+        messages.success(request, 'Files shared successfully!')
 
         return redirect('patient:patient-home')
 
