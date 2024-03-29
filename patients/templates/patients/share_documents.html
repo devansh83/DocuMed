@@ -277,6 +277,11 @@
             window.location.reload();
 
         }
+        else if(selectedDocumentsCount===0){
+            event.preventDefault();
+            window.alert("No document has been selected");
+            window.location.reload();
+        }
     });
 
 </script>
