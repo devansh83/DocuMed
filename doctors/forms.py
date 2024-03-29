@@ -8,7 +8,7 @@ from patients.models import PatientUser, Documents
 class DoctorRegisterForm(UserCreationForm):
     email = forms.EmailField()
     name = forms.CharField()
-    phone_number = forms.IntegerField(max_value=9999999999, min_value=0)
+    phone_number = forms.IntegerField(max_value=9999999999, min_value=1000000000)
     license = forms.FileField()
 
     class Meta:

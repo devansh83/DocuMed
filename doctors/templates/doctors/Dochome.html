@@ -186,7 +186,8 @@
                 <p>Name: {{ patient.name }}</p>
                 <p>Age: {{ patient.age }}</p>
                 <p>Gender: {{patient.gender}}</p>
-
+                <p>Phone Number: {{patient.phone_number}}</p>
+                <p>Blood Group: {{patient.blood_group}}</p>
                 <!-- View Patient Documents button -->
                 <a href="{% url 'doctor:patient_documents' patient.name %}"><button class="view-documents">View Patient Documents</button></a>
                 <!-- Add Follow-up Date button -->
