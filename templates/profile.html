@@ -157,6 +157,8 @@
                         {% if not forloop.last %},{% endif %}
                     {% endfor %}
                 </h3>
+                <h3>Phone Number: {{profile.doctor_user.phone_number}}</h3>
+                <h3>License: <a href="{{profile.doctor_user.license.url}}">{{profile.doctor_user.license.name}}</a></h3>
             </div>
         </section>
     </main>

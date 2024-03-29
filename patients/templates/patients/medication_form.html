@@ -262,6 +262,8 @@
           <span class="prescription-type">PDF Document</span>
         </a>
       </div>
+      {% empty %}
+            <p>No current prescriptions.</p>
       {% endfor %}
     </div>
   </div>
