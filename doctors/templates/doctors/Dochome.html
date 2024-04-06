@@ -153,6 +153,31 @@
         p {
             margin: 0;
         }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+          }
+          .error-messages {
+            text-align: center;
+            margin-top: 20px; /* Add some space above the error messages */
+        }
+        
+        .error-message {
+            color: #ff3333; /* Red color for error messages */
+            font-size: 24px; /* Adjust the font size as needed */
+            font-weight: bold; /* Make the text bold */
+            text-transform: uppercase; /* Convert text to uppercase */
+            padding: 10px; /* Add padding around the text */
+            border-radius: 5px; /* Add rounded corners */
+            background-color: #ffe6e6; /* Light red background color */
+            display: inline-block; /* Make each message display inline */
+            margin-bottom: 10px; /* Add some space between messages */
+        }
+        
+        
+        
     </style>
 </head>
 <body>
@@ -165,6 +190,9 @@
             <button><i class="fa fa-search"></i>Search</button>
         </div>
         <div class="end-buttons">
+            <form action="{% url 'doctor:view_appointments' %}" method="get">
+                <button type="submit">View Appointments</button>
+            </form>
             <form action="{% url 'doctor:update' %}" method="get">
                 <button type="submit">Update Profile</button>
             </form>
@@ -177,6 +205,15 @@
             </form>
         </div>
     </nav>
+    {% if messages %}
+<div class="error-messages">
+    {% for message in messages %}
+    <p class="error-message">{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+    
     <h1>Patients</h1>
     <main class="main-content">
         <section class="section patients">
@@ -189,7 +226,10 @@
                 <p>Phone Number: {{patient.phone_number}}</p>
                 <p>Blood Group: {{patient.blood_group}}</p>
                 <!-- View Patient Documents button -->
-                <a href="{% url 'doctor:patient_documents' patient.name %}"><button class="view-documents">View Patient Documents</button></a>
+                <a href="{% url 'doctor:patient_documents' patient_username=patient.user.username %}">
+                    <button class="view-documents">View Patient Documents</button>
+                </a>
+                
                 <!-- Add Follow-up Date button -->
                 <a href="{% url 'doctor:appointmentadd' patient.user.username %}"><button class="add-follow-up">Add Follow-up Date</button></a>
                 <!-- Delete button -->

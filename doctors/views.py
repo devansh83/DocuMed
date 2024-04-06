@@ -105,8 +105,8 @@ def shared_documents(request):
 
 
 @login_required
-def patient_documents(request, patient_name):
-    patient = get_object_or_404(PatientUser, name=patient_name)
+def patient_documents(request, patient_username):
+    patient = get_object_or_404(PatientUser, user__username=patient_username)
     doctor = request.user.doctoruser
     shared_docs = SharedDocument.objects.filter(patient=patient, doctor=doctor)
 
@@ -117,7 +117,7 @@ def patient_documents(request, patient_name):
             document.author = patient
             document.save()
             SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, verified=True)
-            return redirect('doctor:patient_documents', patient_name=patient.name)
+            return redirect('doctor:patient_documents', patient_username=patient_username)
     else:
         form = DocumentForm()
 
@@ -128,6 +128,8 @@ def patient_documents(request, patient_name):
     }
 
     return render(request, 'doctors/patient_documents.html', context)
+
+
 
 @login_required
 def updateform(request):
@@ -147,23 +149,66 @@ def updateform(request):
         form = ProfileUpdateForm(instance=profile)
 
     return render(request, 'doctors/update.html',{'form':form})
-@login_required
-def Schedule(request,patient_id):
-     user = request.user
-     if not DoctorUser.objects.filter(user=user).exists():
-        return redirect('login')
-     
-     if request.method=="POST":
-       doctor = request.user.doctoruser
-       patient = get_object_or_404(PatientUser, user__username=patient_id)
-       form = ScheduleAppointment(request.POST)
-       if form.is_valid():
-            Appointment.objects.create(patient=patient,doctor=doctor,date=form.cleaned_data['FollowUpDate'])
-            return redirect('doctor:doctor-home')
-     else:
-         form=ScheduleAppointment()
 
-     return render(request,'doctors/appointmentadd.html',{'form':form})  
+@login_required
+def appointments(request):
+    # Get the currently logged-in doctor user
+    doctor = request.user.doctoruser
+
+    # Retrieve all appointments of the doctor
+    appointments = Appointment.objects.filter(doctor=doctor)
+
+    # Render the template and pass the appointments as context
+    return render(request, 'doctors/view_current_appointments.html', {'appointments': appointments})
+    
+    
+
+
+from django.core.exceptions import ValidationError
+from .models import DAYS_OF_WEEK
+@login_required
+def Schedule(request, patient_id):
+    user = request.user
+    if not DoctorUser.objects.filter(user=user).exists():
+        return redirect('login')
+
+    current_doctor = request.user.doctoruser
+    current_patient = get_object_or_404(PatientUser, user__username=patient_id)
+
+    if request.method == "POST":
+        form = ScheduleAppointment(request.POST)
+        if form.is_valid():
+            follow_up_date = form.cleaned_data['FollowUpDate']
+            min_follow_up_time = follow_up_date - timezone.timedelta(minutes=30)
+            max_follow_up_time = follow_up_date + timezone.timedelta(minutes=30)
+            
+            # Check if there's already an appointment within 30 minutes
+            if Appointment.objects.filter(doctor=current_doctor, date__range=(min_follow_up_time, max_follow_up_time)).exists():
+                messages.error(request, "Another appointment already exists within 30 minutes of this time.")
+                return redirect('doctor:doctor-home')
+            
+            # Check if the appointment falls on a working day for the doctor
+            appointment_day = follow_up_date.strftime('%A')  # Get the day name from the date
+            if not current_doctor.profile.working_days.filter(name=appointment_day).exists():
+                messages.error(request, "Appointment date does not fall on a working day for the doctor.")
+                return redirect('doctor:doctor-home')
+            
+            # Delete all existing appointments for the current patient and doctor
+            existing_appointments = Appointment.objects.filter(patient=current_patient, doctor=current_doctor)
+            existing_appointments.delete()
+
+            # Create a new appointment
+            Appointment.objects.create(patient=current_patient, doctor=current_doctor, date=follow_up_date)
+            
+            return redirect('doctor:doctor-home')
+    else:
+        form = ScheduleAppointment()
+
+    return render(request, 'doctors/appointmentadd.html', {'form': form})
+
+
+
+
 
 from django.http import JsonResponse
 
