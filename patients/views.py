@@ -100,17 +100,28 @@ class DeleteCertificates(View):
             return JsonResponse({'error': str(e)}, status=500)
 class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
-    fields = ['medical_condition', 'medicines', 'file']
+    fields = ['medical_condition', 'medicines', 'file','document_name']
     success_url = reverse_lazy('patient:medupload')
     login_url = '/patient/login/' 
-
+    
     def form_valid(self, form):
         form.instance.author = self.request.user.patientuser
+        sample=Documents.objects.filter(author=self.request.user.patientuser,document_name=form.instance.document_name,type='prescription').exists()
+        if(sample):
+            messages.error(self.request, "A prescription with the same name already exists.")
+            return redirect('patient:patient-home')
         Documents.objects.create(
             author=self.request.user.patientuser,
             file=form.instance.file,
+            document_name=form.instance.document_name,
             type='prescription'
         )
+        # Documents.objects.create(
+        #     author=self.request.user.patientuser,
+        #     file=form.instance.file,
+        #     document_name=form.instance.document_name,
+        #     type='current'
+        # )
         response = super().form_valid(form)
         reset_form_script = "<script>resetForm();</script>"
         response.content += reset_form_script.encode()
@@ -122,6 +133,13 @@ class UploadMedication(LoginRequiredMixin, CreateView):
         context['medications'] = Medication.objects.filter(author = patient)
         return context
     
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .models import Documents
+from .forms import DocumentForm
+
 class UploadDocuments(LoginRequiredMixin, CreateView):
     model = Documents
     form_class = DocumentForm
@@ -131,14 +149,29 @@ class UploadDocuments(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user.patientuser
         
-        return super().form_valid(form)
+        # Check if a document with the same name and type already exists
+        document_name = form.cleaned_data['document_name']
+        document_type = form.cleaned_data['type']
+        existing_document = Documents.objects.filter(author=self.request.user.patientuser, document_name=document_name, type=document_type,verified=False).exists()
+        
+        if existing_document:
+            self.duplicate_document = True
+            messages.error(self.request, "A document with the same name already exists.")
+            return redirect('patient:patient-home')
+              # Return form invalid if duplicate document found
+        else:
+            self.duplicate_document = False
+            
+            return super().form_valid(form)  # Proceed with form submission if no duplicates
 
     def get_context_data(self, **kwargs):
         patient = self.request.user.patientuser
         context = super().get_context_data(**kwargs)
         context['documents'] = Documents.objects.filter(author=patient)
+        context['duplicate_document'] = getattr(self, 'duplicate_document', False)
         return context
-    
+
+
     
 @login_required
 def share_documents(request):

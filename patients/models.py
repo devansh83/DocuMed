@@ -30,7 +30,8 @@ class Medication(models.Model):
     medical_condition = models.CharField(max_length=100)
     medicines = models.TextField()
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='')    
+    file = models.FileField(upload_to='') 
+    document_name = models.CharField(max_length=100)
 
 class Documents(models.Model):
     DOCUMENT_TYPES = (
@@ -38,10 +39,13 @@ class Documents(models.Model):
     ('lab_report', 'Lab Report'),
     ('scans', 'Scans'),
     ('medical_certificate', 'Medical Certificate'),
+    
 )
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='')
     type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, default = 'prescription')
+    document_name = models.CharField(max_length=100)
+    verified = models.BooleanField(default=False)
 
 
 
