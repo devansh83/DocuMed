@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Scans</title>
+    <title>Medical Certificates</title>
     <style>
         body {
         margin: 0;
@@ -52,12 +52,12 @@
             text-align: center;
         }
         .prescription-card {
+            position: relative; /* Position the card relative to its container */
             width: 200px; /* Set a fixed width for each card */
             padding: 20px;
             margin: 10px;
             border: 1px solid #ccc;
             text-align: center;
-            position: relative; /* Position the card relative to its container */
         }
         .prescription-icon {
             font-size: 100px;
@@ -75,7 +75,7 @@
         }
         .prescription-name {
             margin-top: 10px;
-            word-wrap: normal;
+            word-wrap: normal; /* Break long words to wrap */
         }
         .delete-btn {
             position: absolute; /* Position the delete button absolutely */
@@ -92,6 +92,20 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .prescription-by-doctor {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .verified {
+            color: green; /* Color for verified */
+        }
+        
+        .not-verified {
+            color: blue; /* Color for not verified */
+        }
+        
     </style>
     <link
       rel="stylesheet"
@@ -114,27 +128,29 @@
         <hr />
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in scans %}
-            <div class="prescription-card" id="scan-{{ prescription.id }}">
-                <a
-                href="{{ prescription.file.url }}"
-                target="_blank"
-                class="prescription-link"
-                title="{{ prescription.file.name }}" 
-                >
-                <i class="fas fa-file-pdf prescription-icon"></i>
-                <div class="prescription-name">{{ prescription.file.name }}</div>
-                <button class="delete-btn" onclick="deletescans('{{ prescription.id }}', event)">X</button>
+            <div class="prescription-card" id="certificate-{{ prescription.id }}">
+                <a href="{{ prescription.file.url }}" target="_blank" class="prescription-link" title="{{ prescription.file.name }}">
+                    <i class="fas fa-file-pdf prescription-icon"></i>
+                    <div class="prescription-name">{{ prescription.document_name }}</div>
+                    <button class="delete-btn" onclick="deleteCertificate('{{ prescription.id }}')">X</button>
                 </a>
+                <div class="prescription-by-doctor">
+                    Uploaded by: 
+                    <span class="{% if prescription.verified %}verified{% else %}not-verified{% endif %}">
+                        {% if prescription.verified %}Doctor{% else %}Patient{% endif %}
+                    </span>
+                </div>
             </div>
+            
             {% empty %}
-            <p>No scan available.</p>
+            <p>No certificate available.</p>
             {% endfor %}
         </div>
     </div>
     <script>
-        function deletescans(scanId, event) {
+        function deleteCertificate(certificateId) {
             event.preventDefault();
-            var url = '/patient/delete-scan/' + scanId + '/'; // Adjust the URL as per your Django URL configuration
+            var url = '/patient/delete-certificate/' + certificateId + '/'; // Adjust the URL as per your Django URL configuration
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -143,9 +159,9 @@
             })
             .then(response => {
                 if (response.ok) {
-                    document.getElementById("scan-" + scanId).remove(); // Remove the scan card from the UI
+                    document.getElementById("certificate-" + certificateId).remove(); // Remove the certificate card from the UI
                 } else {
-                    console.error('Failed to delete scan');
+                    console.error('Failed to delete certificate');
                 }
             })
             .catch(error => console.error('Error:', error));

@@ -104,6 +104,8 @@ def shared_documents(request):
     return render(request, 'doctors/shared_documents.html', context)
 
 
+from django.contrib import messages
+
 @login_required
 def patient_documents(request, patient_username):
     patient = get_object_or_404(PatientUser, user__username=patient_username)
@@ -113,11 +115,18 @@ def patient_documents(request, patient_username):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            document = form.save(commit=False)
-            document.author = patient
-            document.save()
-            SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, verified=True)
-            return redirect('doctor:patient_documents', patient_username=patient_username)
+            document_type = form.cleaned_data['type']
+            document_name = form.cleaned_data['document_name']
+            # Check if a document with the same name and type already exists
+            if shared_docs.filter(document__document_name=document_name, document__type=document_type).exists():
+                messages.error(request, "Document with the same name and type already exists.")
+                return redirect('doctor:doctor-home')
+            else:
+                document = form.save(commit=False)
+                document.author = patient
+                document.save()
+                SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, document_name=document_name, verified=True)
+                return redirect('doctor:patient_documents', patient_username=patient_username)
     else:
         form = DocumentForm()
 
@@ -128,6 +137,8 @@ def patient_documents(request, patient_username):
     }
 
     return render(request, 'doctors/patient_documents.html', context)
+
+
 
 
 

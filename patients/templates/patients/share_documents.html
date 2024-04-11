@@ -179,10 +179,16 @@
         <div style="max-height: 200px; overflow-y: auto;">
             {% for document in documents %}
                 <div>
-                    <input type="checkbox" name="documents" value="{{ document.id }}"> {{ document.file.name }}
+                    <input type="checkbox" name="documents" value="{{ document.id }}"> 
+                    {{ document.document_name }}, 
+                    <span style="color: #555; font-weight: bold;">Type: {{ document.get_type_display }}</span>,
+                    <span style="color: #555; font-weight: italic;">Author: {% if document.verified %}Doctor{% else %}Patient{% endif %}</span>
+
+                    
                 </div>
             {% endfor %}
         </div>
+        
     </div>
 
     <button type="submit">Share</button>

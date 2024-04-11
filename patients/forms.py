@@ -20,4 +20,4 @@ class PatientRegisterForm(UserCreationForm):
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Documents
-        fields = ['file', 'type']
+        fields = ['file', 'type', 'document_name']

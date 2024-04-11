@@ -92,6 +92,20 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .prescription-by-doctor {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .verified {
+            color: green; /* Color for verified */
+        }
+        
+        .not-verified {
+            color: blue; /* Color for not verified */
+        }
+        
     </style>
     <link
       rel="stylesheet"
@@ -115,17 +129,19 @@
         <div style="display: flex; flex-wrap: wrap; justify-content: center">
             {% for prescription in certificate %}
             <div class="prescription-card" id="certificate-{{ prescription.id }}">
-                <a
-                href="{{ prescription.file.url }}"
-                target="_blank"
-                class="prescription-link"
-                title="{{ prescription.file.name }}" 
-                >
-                <i class="fas fa-file-pdf prescription-icon"></i>
-                <div class="prescription-name">{{ prescription.file.name }}</div>
-                <button class="delete-btn" onclick="deleteCertificate('{{ prescription.id }}')">X</button>
+                <a href="{{ prescription.file.url }}" target="_blank" class="prescription-link" title="{{ prescription.file.name }}">
+                    <i class="fas fa-file-pdf prescription-icon"></i>
+                    <div class="prescription-name">{{ prescription.document_name }}</div>
+                    <button class="delete-btn" onclick="deleteCertificate('{{ prescription.id }}')">X</button>
                 </a>
+                <div class="prescription-by-doctor">
+                    Uploaded by: 
+                    <span class="{% if prescription.verified %}verified{% else %}not-verified{% endif %}">
+                        {% if prescription.verified %}Doctor{% else %}Patient{% endif %}
+                    </span>
+                </div>
             </div>
+            
             {% empty %}
             <p>No certificate available.</p>
             {% endfor %}

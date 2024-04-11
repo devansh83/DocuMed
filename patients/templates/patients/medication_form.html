@@ -235,6 +235,7 @@
   
   <div class="container">
     
+    
     <!-- Add button to toggle the form -->
     <button id="add-prescription-btn" onclick="toggleForm()" class="add-btn">Add Current Prescription</button>
     
@@ -257,7 +258,7 @@
         <button class="delete-btn" onclick="deletePrescription(this, '{{ document.id }}')">X</button>
         <a href="{{ document.file.url }}" target="_blank" class="prescription-link">
           <i class="far fa-file-pdf prescription-icon"></i>
-          {{ document.file.name }}
+          {{ document.document_name }}
           <br>
           <span class="prescription-type">PDF Document</span>
         </a>

@@ -196,7 +196,7 @@
             <div class="prescription-card">
                 <i class="fas fa-file-alt prescription-icon" style="font-size: 100px;"></i> <!-- Font Awesome icon -->
                 <div> 
-                    <h3 class="prescription-link">{{ shared_doc.document.file.name }}</h3> <!-- Applied prescription-link class -->
+                    <h3 class="prescription-link">{{ shared_doc.document.document_name }}</h3> <!-- Applied prescription-link class -->
                     <p class="prescription-type">Type: {{ shared_doc.document.get_type_display }}</p>
                     <p class="prescription-by-doctor">Uploaded by: {{ shared_doc.verified|yesno:"Doctor,Patient" }}</p>
                     <a href="{{ shared_doc.document.file.url }}" target="_blank">View Document</a>
@@ -206,6 +206,9 @@
             <p>No documents shared by this patient.</p>
             {% endfor %}
         </div>
+        
+        
     </div>
+    
 </body>
 </html>

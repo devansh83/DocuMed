@@ -22,7 +22,15 @@ class SharedDocument(models.Model):
     document = models.ForeignKey(Documents, on_delete=models.CASCADE)
     doctor = models.ForeignKey(DoctorUser, on_delete=models.CASCADE)
     patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
+    document_name = models.CharField(max_length=100)
     verified = models.BooleanField(default=False)
+    def save(self, *args, **kwargs):
+        # Set the verified attribute of the associated document to True
+        self.document.verified = True
+        self.document.document_name=self.document_name
+        self.document.save()
+
+        super().save(*args, **kwargs)
 
 DAYS_OF_WEEK = (
     ('Monday', 'Monday'),
