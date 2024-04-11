@@ -45,6 +45,7 @@ class Documents(models.Model):
     file = models.FileField(upload_to='')
     type = models.CharField(max_length=20, choices=DOCUMENT_TYPES, default = 'prescription')
     document_name = models.CharField(max_length=100)
+    comments = models.CharField(max_length=500,default = 'None')
     verified = models.BooleanField(default=False)
 
 

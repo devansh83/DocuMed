@@ -139,7 +139,9 @@
                     <span class="{% if prescription.verified %}verified{% else %}not-verified{% endif %}">
                         {% if prescription.verified %}Doctor{% else %}Patient{% endif %}
                     </span>
+                    Comments:{{prescription.comments}}
                 </div>
+
             </div>
             
             {% empty %}
