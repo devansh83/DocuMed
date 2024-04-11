@@ -190,7 +190,7 @@ def share_documents(request):
             doctor = DoctorUser.objects.get(id=doctor_id)
             for document_id in selected_documents:
                 document = Documents.objects.get(id=document_id, author=patient)
-                SharedDocument.objects.create(document=document, doctor=doctor, patient=patient)
+                SharedDocument.objects.create(document_name=document.document_name,document=document, doctor=doctor, patient=patient)
 
         # Add success message
         messages.success(request, 'Files shared successfully!')

@@ -118,7 +118,7 @@ def patient_documents(request, patient_username):
             document_type = form.cleaned_data['type']
             document_name = form.cleaned_data['document_name']
             # Check if a document with the same name and type already exists
-            if shared_docs.filter(document__document_name=document_name, document__type=document_type).exists():
+            if shared_docs.filter(document__document_name=document_name, document__type=document_type,verified=True).exists():
                 messages.error(request, "Document with the same name and type already exists.")
                 return redirect('doctor:doctor-home')
             else:
