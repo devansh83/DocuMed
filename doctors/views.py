@@ -117,6 +117,7 @@ def patient_documents(request, patient_username):
         if form.is_valid():
             document_type = form.cleaned_data['type']
             document_name = form.cleaned_data['document_name']
+            document_comments=form.cleaned_data['comments']
             # Check if a document with the same name and type already exists
             if shared_docs.filter(document__document_name=document_name, document__type=document_type,verified=True).exists():
                 messages.error(request, "Document with the same name and type already exists.")
@@ -125,7 +126,7 @@ def patient_documents(request, patient_username):
                 document = form.save(commit=False)
                 document.author = patient
                 document.save()
-                SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, document_name=document_name, verified=True)
+                SharedDocument.objects.create(document=document, doctor=doctor, patient=patient, document_name=document_name, verified=True,comments=document_comments)
                 return redirect('doctor:patient_documents', patient_username=patient_username)
     else:
         form = DocumentForm()
@@ -177,9 +178,14 @@ def appointments(request):
 
 from django.core.exceptions import ValidationError
 from .models import DAYS_OF_WEEK
+from django.utils import timezone
+from datetime import datetime
 @login_required
 def Schedule(request, patient_id):
     user = request.user
+    current_system_datetime = timezone.now()
+    print(current_system_datetime)  # Print the current system datetime
+    current_system_datetime_str = current_system_datetime.strftime('%Y-%m-%d %H:%M')
     if not DoctorUser.objects.filter(user=user).exists():
         return redirect('login')
 
@@ -192,7 +198,9 @@ def Schedule(request, patient_id):
             follow_up_date = form.cleaned_data['FollowUpDate']
             min_follow_up_time = follow_up_date - timezone.timedelta(minutes=30)
             max_follow_up_time = follow_up_date + timezone.timedelta(minutes=30)
-            
+            if(follow_up_date<current_system_datetime):
+                messages.error(request, "The date entered is in the past")
+                return redirect('doctor:doctor-home')
             # Check if there's already an appointment within 30 minutes
             if Appointment.objects.filter(doctor=current_doctor, date__range=(min_follow_up_time, max_follow_up_time)).exists():
                 messages.error(request, "Another appointment already exists within 30 minutes of this time.")
@@ -216,6 +224,7 @@ def Schedule(request, patient_id):
         form = ScheduleAppointment()
 
     return render(request, 'doctors/appointmentadd.html', {'form': form})
+
 
 
 
