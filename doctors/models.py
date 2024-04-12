@@ -24,6 +24,7 @@ class SharedDocument(models.Model):
     patient = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     document_name = models.CharField(max_length=100)
     verified = models.BooleanField(default=False)
+    comments = models.CharField(max_length=500,default = 'None')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

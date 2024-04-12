@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             background-color: #f8f8f8;
         }
-          
+        
         .navbar {
             background-color: #0bb7e1;
             padding: 30px 25px;
@@ -20,16 +20,16 @@
             font-weight: bold;
             font-size: 25px;
         }
-          
+        
         .navbar-brand {
             margin: 0;
         }
-  
+        
         .end-buttons {
             display: flex;
             align-items: center;
         }
-  
+        
         .end-buttons button {
             margin-left: 10px;
             padding: 10px 20px;
@@ -42,15 +42,15 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-  
+        
         .end-buttons button:last-child {
             margin-right: 10px;
         }
-  
+        
         .end-buttons button:hover {
             background-color: #c6951b;
         }
-          
+        
         .container {
             padding: 40px;
             border: 1px solid #ccc;
@@ -59,106 +59,122 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Adjusted to ensure the content is visible */
+            min-height: 100vh;
             box-sizing: border-box;
         }
+        
         .upload-section {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
-            width: 50%; /* Adjusted width to match the desired style */
+            width: 50%;
         }
+        
         .uploaded-documents {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             width: 100%;
+            margin-top: 20px;
         }
+        
         .prescription-card {
-            width: 200px;
+            width: 240px;
             padding: 20px;
             margin: 10px;
             border: 1px solid #ccc;
-            text-align: center;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        
+        .prescription-card:hover {
+            border-color: #0bb7e1;
+        }
+        
         .prescription-icon {
-            font-size: 100px;
+            font-size: 50px;
             margin-bottom: 10px;
             color: red;
         }
+        
         .prescription-link {
-            display: block;
-            color: black;
-            font-size: 18px;
+            color: #333;
+            font-size: 16px;
             margin-bottom: 5px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            word-wrap: break-word; /* Added to prevent overflow */
+            word-wrap: break-word;
         }
+        
         .prescription-type,
         .prescription-by-doctor {
-            font-size: 15px; /* Reduced font size */
-            color: #666; /* Adjusted color for better visibility */
-            margin-bottom: 3px; /* Adjusted margin bottom */
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 3px;
         }
-        form {
+        
+        .upload-box {
+            border: 1px solid #ccc;
+            padding: 20px;
             margin-bottom: 20px;
-            width: 100%; /* Adjusted width to match the desired style */
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            align:center;
         }
-        button[type="submit"] {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0bb7e1;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-align: center; /* Center button text */
-        }
-        select {
-            width: 60%;
-            height: 30px;
-            margin-bottom: 15px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-            border-radius: 5px;
-            border: 1px solid #aaa;
-            text-align: center; /* Center input text */
-        }
+        
+        /* Style for form elements */
+        /* Style for file input */
+        /* Style for form elements */
+        /* Style for form elements */
+.upload-section form {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center; /* Center-align the text */
+}
 
-        input[type="file"] {
-            width: 60%;
-            height: 40px; /* Increased height for better visibility */
-            margin-bottom: 8px;
-            padding: 5px; /* Adjusted padding for better appearance */
-            border-radius: 5px;
-            background-color: #f8f8f8; /* Added background color */
-            color: #333; /* Added text color */
-            outline: none; /* Removed outline on focus */
-            transition: border-color 0.3s ease; /* Added transition effect */
-        }
+.upload-section h2 {
+    margin-bottom: 10px; /* Add margin bottom to separate from form */
+}
 
-        input[type="file"]:hover {
-            border-color: #0bb7e1; /* Adjusted border color on hover */
-        }
-        input[type="file"]::-webkit-file-upload-button {
-            cursor: pointer; /* Added pointer cursor */
-            background-color: #0bb7e1; /* Changed button background color */
-            color: #fff; /* Changed button text color */
-            padding: 10px 20px; /* Adjusted button padding */
-            border-radius: 5px;
-            border: none;
-            outline: none;
-            transition: background-color 0.3s ease;
-        }
-        input[type="file"]::-webkit-file-upload-button:hover {
-            background-color: #08a1d8; /* Adjusted button background color on hover */
-        }
+.upload-section input[type="file"] {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    color: #333;
+    border: 1px solid #ccc; /* Add border for better visibility */
+    outline: none;
+    transition: border-color 0.3s ease;
+}
 
+.upload-section input[type="file"]:hover {
+    border-color: #0bb7e1;
+}
+
+.upload-section button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0bb7e1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-section button[type="submit"]:hover {
+    background-color: #08a1d8;
+}
+
+
+        
+        
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
@@ -178,14 +194,17 @@
     </nav>
     
     <div class="container">
-        <div class="upload-section">
-            <h2>Upload Document</h2>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Upload Document</button>
-            </form>
+        <div class="upload-box">
+            <div class="upload-section">
+                <h2>Upload Document</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Upload Document</button>
+                </form>
+            </div>
         </div>
+        
 
         <hr> <!-- Add a horizontal line to visually separate the sections -->
 
@@ -199,6 +218,7 @@
                     <h3 class="prescription-link">{{ shared_doc.document.document_name }}</h3> <!-- Applied prescription-link class -->
                     <p class="prescription-type">Type: {{ shared_doc.document.get_type_display }}</p>
                     <p class="prescription-by-doctor">Uploaded by: {{ shared_doc.verified|yesno:"Doctor,Patient" }}</p>
+                    <p>Comments: {{ shared_doc.comments }}</p>
                     <a href="{{ shared_doc.document.file.url }}" target="_blank">View Document</a>
                 </div>
             </div>
