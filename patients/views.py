@@ -190,10 +190,17 @@ def share_documents(request):
             doctor = DoctorUser.objects.get(id=doctor_id)
             for document_id in selected_documents:
                 document = Documents.objects.get(id=document_id, author=patient)
-                SharedDocument.objects.create(document_name=document.document_name,document=document, doctor=doctor, patient=patient)
-
+                existing_document = SharedDocument.objects.filter(patient = patient, document=document_id, doctor=doctor,verified=False).exists()
+        
+                if existing_document:
+                #   self.duplicate_document = True
+                  messages.error(request, "Document is already shared with Doctor.")
+                  return redirect('patient:patient-home')
+                else:
+                   SharedDocument.objects.create(document_name=document.document_name,document=document, doctor=doctor, patient=patient)
+                   messages.success(request, 'Files shared successfully!')
         # Add success message
-        messages.success(request, 'Files shared successfully!')
+       
 
         return redirect('patient:patient-home')
 
