@@ -16,7 +16,7 @@
         }
         .navbar {
             background-color: #0bb7e1;
-            padding: 30px 25px;
+            padding: 8px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -119,20 +119,20 @@
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
-        </div>
+        </div> <h1>Your Appointments</h1>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button class="end-btn" type="submit">Logout</button>
         </form>
     </nav>
-    <h1>Your Appointments</h1>
+   
     <main class="main-content">
         <section class="section patients">
             <!-- Patient cards -->
             {% for appointment in appointments %}
             <div class="card patient-card">
                 <h3>Doctor: {{ appointment.doctor.name }}</h3>
-                <p>Date & Time: {{appointment}}</p>
+                <p>Date & Time: {{appointment}} hrs</p>
                 <!-- Add more appointment details here if needed -->
                 
             </div>
