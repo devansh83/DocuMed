@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +54,7 @@
         
         .container {
             padding: 40px;
+            background-color: #fff;
             border: 1px solid #ccc;
             text-align: center;
             display: flex;
@@ -177,6 +178,7 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
+{% load crispy_forms_tags %}
 <body>
     <nav class="navbar">
         <div class="navbar-brand">
@@ -208,7 +210,7 @@
         
 
         <hr> <!-- Add a horizontal line to visually separate the sections -->
-
+        
         <h2>Documents Shared by {{ patient.name }}</h2>
 
         <div class="uploaded-documents">
@@ -227,7 +229,7 @@
             <p>No documents shared by this patient.</p>
             {% endfor %}
         </div>
-        
+  
         
     </div>
     

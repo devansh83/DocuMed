@@ -32,7 +32,7 @@
         
       .navbar {
           background-color: #0bb7e1;
-          padding: 30px 25px;
+          padding: 15px 25px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -167,7 +167,7 @@ a:hover {
     </style>
 </head>
 {% load crispy_forms_tags %}
-<body>
+<body style="background-image: url('{% static 'profile.jpg' %}'); background-size: cover;  ">    <nav class="navbar"></nav>
   <nav class="navbar">
     <div class="navbar-brand">
         <a href="{% url 'doctor:doctor-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
           
         .navbar {
             background-color: #0bb7e1;
-            padding: 30px 25px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -122,7 +123,7 @@
             font-size: 40px;
             margin-bottom: 20px;
             text-align: center;
-            color: #0bb7e1;
+            /* color: #0bb7e1; */
         }
 
         h2 {
@@ -191,7 +192,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('{% static 'app.jpg' %}'); background-size: cover;  ">    <nav class="navbar"></nav>
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'doctor:doctor-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
@@ -228,7 +229,7 @@
                 <h5>Phone Number: {{ appointment.patient.phone_number }}</h5>
                 <h5>Gender: {{ appointment.patient.gender }}</h5>
                 <h5>Blood Group: {{ appointment.patient.blood_group }}</h5>
-                <p>Date & Time: {{ appointment.date }}</p>
+                <h5>Date & Time: {{ appointment.date }}</h5>
                 <!-- Add more appointment details here if needed -->
             </div>
             {% empty %}

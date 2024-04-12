@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
           
         .navbar {
             background-color: #0bb7e1;
-            padding: 30px 25px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -74,7 +75,7 @@
         }
 
         .card {
-            background-color: #cac7c7b3;
+            background-color: #fff;
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 8px;
@@ -89,7 +90,7 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            color: #fff;
+            color: hsl(0, 0%, 100%);
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -130,8 +131,8 @@
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
+<body style="background-image: url('{% static 'profile.jpg' %}'); background-size: cover;  ">    <nav class="navbar"></nav>
+<nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
         </div>

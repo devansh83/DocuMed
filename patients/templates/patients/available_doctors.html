@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
         }
         .navbar {
             background-color: #0bb7e1;
-            padding: 30px 25px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,7 +86,7 @@
             margin-top: 30px;
             font-size: 36px;
             font-weight: bold;
-            color: #0bb7e1;
+            /* //color: #0bb7e1; */
         }
 
         .card-container {
@@ -135,7 +136,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('{% static 'available.avif' %}'); background-size: cover;  ">     <nav class="navbar"></nav>
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
