@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Medical Certificates</title>
+    <title>Scans</title>
     <style>
         body {
             margin: 0;
@@ -126,8 +128,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
 </head>
-<body>
-    <nav class="navbar">
+<body style="background-image: url('{% static 'bg.jpg' %}'); background-size: cover;  ">    <nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
         </div>

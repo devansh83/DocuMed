@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,7 +115,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('{% static 'app.jpg' %}'); background-size: cover;  ">    <nav class="navbar"></nav>
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="{% url 'patient:patient-home' %}" style="text-decoration: none; color: inherit;">DocuMED</a>
