@@ -162,17 +162,23 @@ def updateform(request):
 
     return render(request, 'doctors/update.html',{'form':form})
 
+
+from django.utils import timezone
+from datetime import timedelta
 @login_required
 def appointments(request):
     # Get the currently logged-in doctor user
     doctor = request.user.doctoruser
 
-    # Retrieve all appointments of the doctor
-    appointments = Appointment.objects.filter(doctor=doctor)
+    # Calculate the current time plus 30 minutes
+    current_time_plus_30_min = timezone.now() - timedelta(minutes=30)
 
-    # Render the template and pass the appointments as context
+    # Retrieve appointments of the doctor that are scheduled 30 minutes or more in the future
+    appointments = Appointment.objects.filter(doctor=doctor, date__gte=current_time_plus_30_min)
+
+    # Render the template and pass the filtered appointments as context
     return render(request, 'doctors/view_current_appointments.html', {'appointments': appointments})
-    
+
     
 
 
@@ -198,11 +204,12 @@ def Schedule(request, patient_id):
             follow_up_date = form.cleaned_data['FollowUpDate']
             min_follow_up_time = follow_up_date - timezone.timedelta(minutes=30)
             max_follow_up_time = follow_up_date + timezone.timedelta(minutes=30)
-            if(follow_up_date<current_system_datetime):
+            if follow_up_date < current_system_datetime:
                 messages.error(request, "The date entered is in the past")
                 return redirect('doctor:doctor-home')
             # Check if there's already an appointment within 30 minutes
-            if Appointment.objects.filter(doctor=current_doctor, date__range=(min_follow_up_time, max_follow_up_time)).exists():
+            overlapping_appointments = Appointment.objects.filter(doctor=current_doctor, date__range=(min_follow_up_time, max_follow_up_time))
+            if overlapping_appointments.exists() and not overlapping_appointments.filter(patient=current_patient).exists():
                 messages.error(request, "Another appointment already exists within 30 minutes of this time.")
                 return redirect('doctor:doctor-home')
             

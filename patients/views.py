@@ -263,15 +263,25 @@ def view_certificate(request):
     context = {'certificate': certificate}
     return render(request, 'patients/view_certificate.html', context)
 
+
+from django.utils import timezone
+from datetime import timedelta
 @login_required
 def view_appointments(request):
     user = request.user
     if not PatientUser.objects.filter(user=user).exists():
         return redirect('login')
+    
     patient = request.user.patientuser
-    appointments = Appointment.objects.filter(patient=patient)
-    context = {'appointments' : appointments}
-    return render(request,'patients/appointments.html',context)
+    
+    # Calculate the current time plus 30 minutes
+    current_time_plus_30_min = timezone.now() + timedelta(minutes=30)
+    
+    # Retrieve appointments of the patient that are scheduled 30 minutes or more in the future
+    appointments = Appointment.objects.filter(patient=patient, date__gte=current_time_plus_30_min)
+    
+    context = {'appointments': appointments}
+    return render(request, 'patients/appointments.html', context)
 
 @login_required
 def view_profile(request):
