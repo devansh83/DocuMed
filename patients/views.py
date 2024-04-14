@@ -100,7 +100,7 @@ class DeleteCertificates(View):
             return JsonResponse({'error': str(e)}, status=500)
 class UploadMedication(LoginRequiredMixin, CreateView):
     model = Medication
-    fields = ['medical_condition', 'medicines', 'file','document_name']
+    fields = ['medical_condition', 'medicines', 'file','document_name','comments']
     success_url = reverse_lazy('patient:medupload')
     login_url = '/patient/login/' 
     
@@ -114,7 +114,10 @@ class UploadMedication(LoginRequiredMixin, CreateView):
             author=self.request.user.patientuser,
             file=form.instance.file,
             document_name=form.instance.document_name,
-            type='prescription'
+            type='prescription',
+            comments=form.instance.comments
+            
+
         )
         # Documents.objects.create(
         #     author=self.request.user.patientuser,

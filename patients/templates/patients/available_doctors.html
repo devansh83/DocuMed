@@ -155,7 +155,8 @@
     <div class="card-container">
         {% for profile in doctor_profiles %}
             <div class="card">
-                <h2>{{ profile.doctor_user.name }}</h2>
+                <h2> {{ profile.doctor_user.name }}</h2>
+                <p><strong>Username: </strong> {{ profile.doctor_user.user }}</p>
                 <p><strong>Specialization:</strong> {{ profile.specialization }}</p>
                 <p><strong>Hospital:</strong> {{ profile.hospital }}</p>
                 <p><strong>Working Days:</strong>
