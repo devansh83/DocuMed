@@ -32,6 +32,7 @@ class Medication(models.Model):
     author = models.ForeignKey(PatientUser, on_delete=models.CASCADE)
     file = models.FileField(upload_to='') 
     document_name = models.CharField(max_length=100)
+    comments = models.CharField(max_length=500,default = 'None')
 
 class Documents(models.Model):
     DOCUMENT_TYPES = (
